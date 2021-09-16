@@ -1,4 +1,4 @@
-package com.example.demo.Manager;
+package com.example.demo.Controller;
 
 import com.example.demo.FakeData.MockData;
 import com.example.demo.Model.User;
@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
