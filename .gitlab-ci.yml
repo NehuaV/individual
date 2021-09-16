@@ -5,9 +5,9 @@ stages:
 build:
  stage: build
  script: 
-  -./gradelew build -x test
+  - ./gradlew build -x test
 
 test:
  stage: test
  script:
-  - ./gradelew test
+  - ./gradlew test
