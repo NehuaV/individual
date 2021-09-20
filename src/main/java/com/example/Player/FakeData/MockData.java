@@ -4,6 +4,7 @@ import com.example.Player.Model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MockData {
     private List<User> userList;
@@ -38,7 +39,6 @@ public class MockData {
 
     public List<User> getUserUsername(String userName) {
         List<User> temp = new ArrayList<>();
-
         for (User user : userList) {
             if (user.getUsername().equals(userName)) {
                 temp.add(user);

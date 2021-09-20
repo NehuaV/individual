@@ -6,19 +6,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private static final MockData mockData = new MockData();
 
-    @GetMapping()
-    public ResponseEntity<List<User>> getUsers() {
-        List<User> users = mockData.GetUsers();
-        if (users != null) {
-            return ResponseEntity.ok().body(users);
+    @GetMapping
+    public ResponseEntity<List<User>> getUserByUsername1(@RequestParam(value = "username") Optional<String> username) {
+        if (username.isPresent()) {
+            List<User> u = mockData.getUserUsername(username.get());
+            if (u != null) {
+                return ResponseEntity.ok().body(u);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
         } else {
-            return ResponseEntity.notFound().build();
+            List<User> users = mockData.GetUsers();
+            if (users != null) {
+                return ResponseEntity.ok().body(users);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         }
     }
 
@@ -41,4 +52,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }
+
+
+
