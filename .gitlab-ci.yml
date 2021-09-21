@@ -1,8 +1,13 @@
 stages:
 - build
+- test
 
 build:
  stage: build
  script: 
-  - ./gradlew build
-  - ./gradlew.bat --stop
+  - ./gradelew build -x test
+
+test:
+ stage: test
+ script:
+  - ./gradelew test
