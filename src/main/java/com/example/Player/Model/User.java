@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class User {
     int userId;
-    @Getter String username;
+    String username;
     String email;
     String password;
 
