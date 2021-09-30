@@ -10,13 +10,16 @@ class UserCom extends Component {
              posts : []
         }
     }
+
+
+    
     
     
     componentDidMount() {
         axios.get('http://localhost:8080/users')
         .then(response =>{
             this.setState({
-                post: response.data
+                posts: response.data
             })
             console.log(response.data)
         })
