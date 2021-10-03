@@ -31,7 +31,7 @@ class UserCom extends Component {
             <div>
                 <h1>List Of Users</h1>
                 {
-                    posts.map(post => <div key={post.userID}>{post.username}</div>)
+                    posts.map(post => <div key={post.userId}>{post.userId} {post.username} {post.email} {post.password}</div>)
                 }
             </div>
         )
