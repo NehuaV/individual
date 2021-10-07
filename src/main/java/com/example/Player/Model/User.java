@@ -10,10 +10,12 @@ public class User {
     String email;
     String password;
 
-    public User (int userId,String username)
+    public User (int userId,String username,String email,String password)
     {
         this.userId = userId;
         this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     @Override
@@ -21,12 +23,12 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return userId == user.userId && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        return getUserId() == user.getUserId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, email, password);
+        return Objects.hash(getUserId(), getUsername(), getEmail(), getPassword());
     }
 
     public int getUserId() {

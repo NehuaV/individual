@@ -11,10 +11,10 @@ public class MockData {
     public MockData() {
         this.userList = new ArrayList<>();
 
-        User a = new User(0, "Pablo");
-        User b = new User(1, "Tommy");
-        User c = new User(2, "Jenny");
-        User d = new User(3, "Lenny");
+        User a = new User(0, "Pablo","test1@email.com","12341234");
+        User b = new User(1, "Tommy","test2@email.com","12341234");
+        User c = new User(2, "Jenny","test3@email.com","12341234");
+        User d = new User(3, "Lenny","test4@email.com","12341234");
 
         userList.add(a);
         userList.add(b);
@@ -23,26 +23,7 @@ public class MockData {
 
     }
 
-    public List<User> GetUsers() {
-        return this.userList;
-    }
-
-    public User getUserId(int id) {
-        for (User user : this.userList) {
-            if (user.getUserId() == id) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    public List<User> getUserUsername(String userName) {
-        List<User> temp = new ArrayList<>();
-        for (User user : userList) {
-            if (user.getUsername().equals(userName)) {
-                temp.add(user);
-            }
-        }
-        return temp;
+    public List<User> getUserList() {
+        return userList;
     }
 }
