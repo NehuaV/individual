@@ -1,7 +1,10 @@
 package com.example.Player.Model;
 
+import com.example.Player.LogicLayer.PlaylistManager;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -10,12 +13,20 @@ public class User {
     String email;
     String password;
 
+    List<Playlist> playlists = new ArrayList<>();
+    private PlaylistManager p = new PlaylistManager();
+
     public User (int userId,String username,String email,String password)
     {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public boolean AddPlaylist(String name){
+        Playlist temp = p.CreatePlaylist(name);
+        return true;
     }
 
     @Override

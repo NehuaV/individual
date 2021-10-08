@@ -1,5 +1,6 @@
 package com.example.Player.FakeData;
 
+import com.example.Player.Model.Song;
 import com.example.Player.Model.User;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class MockData {
     private List<User> userList;
+    private List<Song> songList;
 
     public MockData() {
         this.userList = new ArrayList<>();
@@ -20,10 +22,24 @@ public class MockData {
         userList.add(b);
         userList.add(c);
         userList.add(d);
+        
+        this.songList = new ArrayList<>();
+        Song aa = new Song("Hey","Hey","/1230nvld23");
+        Song bb = new Song("123","Way","/1230nvld23");
+        Song cc = new Song("456","Jay","/1230nvld23");
+        Song dd = new Song("789","Kay","/1230nvld23");
+
+        songList.add(aa);
+        songList.add(bb);
+        songList.add(cc);
+        songList.add(dd);
 
     }
 
     public List<User> getUserList() {
         return userList;
+    }
+    public List<Song> getSongList() {
+        return songList;
     }
 }

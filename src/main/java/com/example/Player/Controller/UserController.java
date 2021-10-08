@@ -58,6 +58,18 @@ public class UserController {
         }
     }
 
+    @PostMapping()
+    public ResponseEntity<User> createStudent(@RequestBody User user) {
+        if (!data.addUser(user)){
+            String entity =  "User with username {" + user.getUsername() + "} already exists.";
+            return new ResponseEntity(entity,HttpStatus.CONFLICT);
+        } else {
+            String url = "user/" + user.getUsername();
+            URI uri = URI.create(url);
+            return new ResponseEntity(uri,HttpStatus.CREATED);
+        }
+    }
+
 }
 
 

@@ -46,4 +46,12 @@ public class UserManager {
         return temp;
     }
 
+    public boolean addUser(User user) {
+        if (this.getUserId(user.getUserId()) != null){
+            return false;
+        }
+        userList.add(user);
+        return true;
+    }
+
 }
