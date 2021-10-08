@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PlaylistManager {
     private List<Playlist> playlistList = new ArrayList<>();
-    private MockData mockData = new MockData();
+    private MockData mockData;
 
     public PlaylistManager(){
 

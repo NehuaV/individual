@@ -1,11 +1,16 @@
 import './App.css';
 import UserCom from './component/UserCom';
+import CrudCom from './component/CrudCom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+
+  
+
   return (
     <div className="App">
       <UserCom></UserCom>
-      <h1>blablabla</h1>
+      <CrudCom/>
     </div>
   );
 }

@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<User> deletePost(@PathVariable int id) {
+    public ResponseEntity<User> deleteUser(@PathVariable int id) {
         if (data.getUserId(id) != null) {
             data.deleteUserId(id);
             return ResponseEntity.ok().build();
@@ -59,14 +59,23 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<User> createStudent(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         if (!data.addUser(user)){
             String entity =  "User with username {" + user.getUsername() + "} already exists.";
             return new ResponseEntity(entity,HttpStatus.CONFLICT);
         } else {
-            String url = "user/" + user.getUsername();
+            String url = "users/" + user.getUsername();
             URI uri = URI.create(url);
             return new ResponseEntity(uri,HttpStatus.CREATED);
+        }
+    }
+
+    @PutMapping()
+    public ResponseEntity<User> updateStudent(@RequestBody User user) {
+        if (data.updateUser(user)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return new ResponseEntity("Please provide a valid User Data.",HttpStatus.NOT_FOUND);
         }
     }
 

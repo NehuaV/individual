@@ -54,4 +54,12 @@ public class UserManager {
         return true;
     }
 
+    public boolean updateUser(User user) {
+        User old = this.getUserId(user.getUserId());
+        if (old == null) { return false; }
+        int index = userList.indexOf(old);
+        userList.set(index, user);
+        return true;
+    }
+
 }
