@@ -1,0 +1,18 @@
+.player-wrapper {
+    background-color: salmon;
+    height: 100vh;
+    display: grid;
+    align-items: center;
+}
+
+.player {
+    display: grid;
+    background-color: whitesmoke;
+    max-width: 300px;
+    justify-content: center;
+}
+
+.image{
+    height:200px;
+    width: 200px;
+}
