@@ -1,0 +1,16 @@
+iframe{
+    animation: rotation 120s infinite linear;
+    border-radius: 50%;
+}
+
+.spinerOverlay{
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    z-index: 1000;
+    -webkit-box-shadow: 5px 5px 15px 10px #0000004f;
+    -moz-box-shadow: 5px 5px 15px 10px #0000004f;
+    box-shadow: 5px 5px 15px 10px #0000004f;
+}
