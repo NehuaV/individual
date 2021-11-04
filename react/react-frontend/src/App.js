@@ -5,13 +5,12 @@ import HeaderCom from './component/HeaderCom';
 import PlayerCom from './component/PlayerCom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PlayerReact from './component/PlayerReact';
 
 function App() {
   return (
     <div className="App">
       <HeaderCom></HeaderCom>
-      <PlayerReact/>
+      <PlayerCom/>
     </div>
   );
 }

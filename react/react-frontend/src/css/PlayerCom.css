@@ -11,10 +11,11 @@
     justify-content: center;
 }
 
-.player {
+.player-test {
     background-color: cadetblue;
     text-align: center;
     padding: 20px;
+    border-radius: 25px;
 }
 
 .image{

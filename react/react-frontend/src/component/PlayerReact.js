@@ -9,17 +9,17 @@ export default class PlayerReact extends React.Component {
       // State Reloads Component every time the state has been changed
 
       // Player functionality
-      url: null,
+      url: null, // Cuurently playing song
       pip: false,
       playing: false,
       controls: false,
       light: false,
-      volume: 1,
-      muted: false,
-      played: 0,
-      loaded: 0,
-      duration: 0,
-      playbackRate: 1.0,
+      volume: 1, // Volume
+      muted: false, // Mute
+      played: 0, // Change FF on video/track
+      loaded: 0, // Loaded Portion
+      duration: 0, // Display Duration
+      playbackRate: 1.0, // Speed
       loop: false,
 
       // List of Songs
@@ -63,27 +63,69 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playing);
   };
 
+  ref = player => {
+    this.player = player
+  }
+
+  handleNextSong = () => {
+    var lenght = 0;
+    var index = this.state.songs.findIndex(
+      (urlObj) => urlObj.url === this.state.url
+    );
+    index++;
+    this.state.songs.map((song) => lenght++);
+    if (!(index < lenght)) index = 0;
+    this.load(this.state.songs[index].url);
+  };
+
+  handlePreviousSong = () => {
+    var lenght = 0;
+    var index = this.state.songs.findIndex(
+      (urlObj) => urlObj.url === this.state.url
+    );
+    index--;
+    this.state.songs.map((song) => lenght++);
+    if (index < 0) index = lenght - 1;
+    this.load(this.state.songs[index].url);
+  };
+
+  // Volume
   handleVolumeChange = (e) => {
-    // Volume
     this.setState({ volume: parseFloat(e.target.value) });
   };
 
-  /*NextSong = () =>{
-      var index = this.state.songs.findIndex(urlz => urlz === this.state.url);
-      index++;
-      //var tempsong = this.state.songs[index + 1]  ;
-      //console.log("temp song is"+ tempsong.url);
-      this.load(this.state.songs[index].url);
-  }*/
+  // Progress Bar
+  handleSeekMouseDown = (e) => {
+    this.setState({ seeking: true });
+  };
+
+  handleSeekChange = (e) => {
+    this.setState({ played: parseFloat(e.target.value) });
+  };
+
+  handleSeekMouseUp = (e) => {
+    this.setState({ seeking: false });
+    this.player.seekTo(parseFloat(e.target.value, true));
+  };
+
+  handleProgress = state => { // Update the duration slider
+    console.log('onProgress', state)
+    // Only update if we are not changing the position of the song
+    if (!this.state.seeking) {
+      this.setState(state)
+    }
+  }
 
   render() {
     return (
       <>
         <div className="Player">
           <div className="spinner">
-            <div className="spinerOverlay"></div>
+            <div className="spinnerOverlay">
             <ReactPlayer
+              ref={this.ref}
               className={styles.reactplayer}
+              className="video-pb"
               width="500px"
               height="500px"
               url={this.state.url}
@@ -95,6 +137,7 @@ export default class PlayerReact extends React.Component {
               playbackRate={this.state.playbackRate}
               volume={this.state.volume}
               muted={this.state.muted}
+              onProgress={this.handleProgress}
               /*onReady={() => console.log("onReady")}
             onStart={() => console.log("onStart")}
             onPlay={this.handlePlay}
@@ -108,29 +151,15 @@ export default class PlayerReact extends React.Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration} */
             />
-            
+            </div>
           </div>
 
+          <button onClick={this.handlePreviousSong}> Previous song</button>
           <button onClick={this.handlePlay}>
             {this.state.playing ? "STOP" : "PLAY"}
           </button>
 
-          <button
-            onClick={() => {
-              var index = this.state.songs.findIndex(
-                (urlz) => urlz === this.state.url
-              );
-              index++;
-              index++;
-              this.load(this.state.songs[index].url);
-            }}
-            /*onClick={() =>
-              this.load("https://www.youtube.com/watch?v=qh3dYM6Keuw")
-            }*/
-          >
-            {" "}
-            Next song
-          </button>
+          <button onClick={this.handleNextSong}> Next song</button>
 
           <div className="volume">
             <label for="customRange3" class="form-label">
@@ -144,7 +173,23 @@ export default class PlayerReact extends React.Component {
               step="0.01"
               id="customRange3"
               onChange={this.handleVolumeChange}
-            ></input>
+            />
+          </div>
+          <div className="pBar">
+            <label for="customRange3" class="form-label">
+              Pogress
+            </label>
+            <input
+              type="range"
+              class="form-range"
+              min={0}
+              max={0.999999}
+              step="any"
+              value={this.state.played}
+              onMouseDown={this.handleSeekMouseDown}
+              onChange={this.handleSeekChange}
+              onMouseUp={this.handleSeekMouseUp}
+            />
           </div>
         </div>
       </>
