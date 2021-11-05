@@ -1,0 +1,30 @@
+
+iframe{
+    border-radius: 50%;
+}
+
+.video-pb {
+    animation: rotation 120s infinite linear;
+    pointer-events: none;
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+.spinnerOverlay{
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    -webkit-box-shadow: 5px 5px 15px 10px #0000004f;
+    -moz-box-shadow: 5px 5px 15px 10px #0000004f;
+    box-shadow: 5px 5px 15px 10pxy #0000004f;
+    pointer-events: none;
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+
+

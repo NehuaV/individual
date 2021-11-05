@@ -1,0 +1,44 @@
+.player-wrapper {
+    background-color: salmon;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.player-container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-test {
+    background-color: cadetblue;
+    text-align: center;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.image{
+    height:200px;
+    width: 200px;
+    animation: rotation 12s infinite linear;
+    border-radius: 50%;
+}
+
+.image.animate {
+    animation-play-state: running;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+.btn-group {
+    padding-top: 20px;
+}
+
