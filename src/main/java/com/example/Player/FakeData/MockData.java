@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockData {
-    private List<User> userList;
+  /*  private List<User> userList;
     private List<Song> songList;
 
     public MockData() {
@@ -41,5 +41,5 @@ public class MockData {
     }
     public List<Song> getSongList() {
         return songList;
-    }
+    }*/
 }

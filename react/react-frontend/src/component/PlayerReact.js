@@ -1,10 +1,11 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import styles from "../css/PlayerReact.css";
+import axios from "axios";
 
 export default class PlayerReact extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       // State Reloads Component every time the state has been changed
 
@@ -23,22 +24,33 @@ export default class PlayerReact extends React.Component {
       loop: false,
 
       // List of Songs
-      songs: null,
+      songs: [],
+      temp: [],
     };
   }
 
-  componentDidMount() {
+ componentDidMount() {
     // Temporary hardcoded songs
-    const songs = [
-      { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
-      { url: "https://www.youtube.com/watch?v=8B93tgRxMuE" },
-      { url: "https://www.youtube.com/watch?v=YE0WmmEn7Yk" },
-      { url: "https://www.youtube.com/watch?v=ETecZsoA0jo" },
-      { url: "https://youtu.be/8wRW57nBLMI?t=21" },
-      { url: "https://www.youtube.com/watch?v=EcCVX42H2fg" },
-      { url: "https://www.youtube.com/watch?v=bvC_0foemLY" },
-    ];
-    this.setState({ songs: songs });
+    //const songs = [
+    //  { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
+    //  { url: "https://www.youtube.com/watch?v=8B93tgRxMuE" },
+    //  { url: "https://www.youtube.com/watch?v=YE0WmmEn7Yk" },
+    //  { url: "https://www.youtube.com/watch?v=ETecZsoA0jo" },
+    //  { url: "https://youtu.be/8wRW57nBLMI?t=21" },
+    //  { url: "https://www.youtube.com/watch?v=EcCVX42H2fg" },
+    //  { url: "https://www.youtube.com/watch?v=bvC_0foemLY" },
+    //];
+
+
+    const songs = [{ url: "https://www.youtube.com/watch?v=O48hUxxJxS8" }];
+
+    axios.get("http://localhost:8080/song").then((response) => {
+      this.setState({
+        songs: response.data
+      });
+      console.log(this.state.songs);
+    });
+    
     console.log(this.state.songs);
 
     // Load first song in list

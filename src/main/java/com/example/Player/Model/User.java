@@ -3,51 +3,53 @@ package com.example.Player.Model;
 import com.example.Player.LogicLayer.PlaylistManager;
 import lombok.Getter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name="user")
 public class User {
-    int userId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name="username")
     String username;
+    @Column(name="email")
     String email;
+    @Column(name="password")
     String password;
 
-    List<Playlist> playlists = new ArrayList<>();
-    private PlaylistManager p = new PlaylistManager();
+    public User() {
+    }
 
-    public User (int userId,String username,String email,String password)
+    public User (String username, String email, String password)
     {
-        this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public boolean AddPlaylist(String name){
-        Playlist temp = p.CreatePlaylist(name);
-        return true;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getUserId() == user.getUserId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUserId(), getUsername(), getEmail(), getPassword());
-    }
-
-    public int getUserId() {
-        return userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -56,5 +58,22 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), username, email, password);
     }
 }

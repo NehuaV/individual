@@ -1,8 +1,13 @@
 package com.example.Player.Controller;
 
 import com.example.Player.FakeData.MockData;
+import com.example.Player.Interfaces.ISong;
+import com.example.Player.Interfaces.IUser;
 import com.example.Player.LogicLayer.UserManager;
+import com.example.Player.Model.Song;
 import com.example.Player.Model.User;
+import com.example.Player.repository.IUserDAL;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +21,17 @@ import java.util.OptionalInt;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private static final UserManager data = new UserManager();
+
+
+    private UserManager data = new UserManager();
+
+    @Autowired
+    IUserDAL repo;
 
     @GetMapping
     public ResponseEntity<List<User>> getUserByUsername(@RequestParam(value = "username") Optional<String> username) {
         if (username.isPresent()) {
-            List<User> u = data.getUserUsername(username.get());
+            List<User> u = repo.GetUsers();
             if (u != null) {
                 return ResponseEntity.ok().body(u);
             } else {
@@ -29,7 +39,7 @@ public class UserController {
             }
 
         } else {
-            List<User> users = data.GetUsers();
+            List<User> users = repo.GetUsers();
             if (users != null) {
                 return ResponseEntity.ok().body(users);
             } else {
