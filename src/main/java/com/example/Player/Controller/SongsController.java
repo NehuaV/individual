@@ -2,7 +2,6 @@ package com.example.Player.Controller;
 
 
 import com.example.Player.Model.Song;
-import com.example.Player.Model.User;
 import com.example.Player.repository.ISongDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

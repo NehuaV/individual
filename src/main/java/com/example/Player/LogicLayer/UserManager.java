@@ -20,7 +20,6 @@ public class UserManager implements IUserDAL {
     IUser iUser;
 
     public UserManager(){
-//        userList = GetUsers();
     }
 
     @Override
@@ -28,18 +27,28 @@ public class UserManager implements IUserDAL {
         return iUser.findAll();
     }
 
-    public User getUserId(int id) {
+    // For testing purposes
+    public UserManager(List<User> userlist){
+        userList = userlist;
+    }
+
+    public List<User> GetAllUsers() {
+        return this.userList;
+    }
+
+
+    public User getUserId(Long id) {
         for (User user : this.userList) {
-            if ((user.getId().intValue()) == id) {
+            if ((user.getId().equals(id))) {
                 return user;
             }
         }
         return null;
     }
 
-    public boolean deleteUserId(int id) {
+    public boolean deleteUserId(Long id) {
         User user = getUserId(id);
-        if (user == null){
+        if (user.equals(null)){
             return false;
         }
         return userList.remove(user);
@@ -56,7 +65,7 @@ public class UserManager implements IUserDAL {
     }
 
     public boolean addUser(User user) {
-        if (this.getUserId(user.getId().intValue()) != null){
+        if (this.getUserId(user.getId()) != null){
             return false;
         }
         userList.add(user);
@@ -64,7 +73,7 @@ public class UserManager implements IUserDAL {
     }
 
     public boolean updateUser(User user) {
-        User old = this.getUserId(user.getId().intValue());
+        User old = this.getUserId(user.getId());
         if (old == null) { return false; }
         int index = userList.indexOf(old);
         userList.set(index, user);

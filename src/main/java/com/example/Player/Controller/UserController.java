@@ -1,10 +1,6 @@
 package com.example.Player.Controller;
 
-import com.example.Player.FakeData.MockData;
-import com.example.Player.Interfaces.ISong;
-import com.example.Player.Interfaces.IUser;
 import com.example.Player.LogicLayer.UserManager;
-import com.example.Player.Model.Song;
 import com.example.Player.Model.User;
 import com.example.Player.repository.IUserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -49,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/userId/{userId}")
-    public ResponseEntity<User> getUserByIds(@PathVariable int userId) {
+    public ResponseEntity<User> getUserByIds(@PathVariable Long userId) {
         User user = data.getUserId(userId);
         if (user != null) {
             return ResponseEntity.ok().body(user);
@@ -59,7 +54,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         if (data.getUserId(id) != null) {
             data.deleteUserId(id);
             return ResponseEntity.ok().build();
