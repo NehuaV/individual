@@ -29,7 +29,7 @@ export default class PlayerReact extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // Temporary hardcoded songs
     //const songs = [
     //  { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
@@ -45,7 +45,7 @@ export default class PlayerReact extends React.Component {
       { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
     ];
 
-    axios.get("http://localhost:8080/song").then((response) => {
+    await axios.get("http://localhost:8080/song").then((response) => {
       this.setState({
         songs: response.data,
       });

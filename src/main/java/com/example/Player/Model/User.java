@@ -22,6 +22,9 @@ public class User {
     @Column(name="password")
     String password;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Playlist> playlists;
+
     public User() {
     }
 

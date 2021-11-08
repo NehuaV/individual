@@ -23,6 +23,7 @@ public class SongsController {
         if (song.isPresent()) {
             List<Song> u = repo.GetAllSongs();
             if (u != null) {
+               // System.out.println(u.stream().count());
                 return ResponseEntity.ok().body(u);
             } else {
                 return ResponseEntity.notFound().build();
@@ -31,6 +32,7 @@ public class SongsController {
         } else {
             List<Song> songs = repo.GetAllSongs();
             if (songs != null) {
+               // System.out.println(songs.stream().count());
                 return ResponseEntity.ok().body(songs);
             } else {
                 return ResponseEntity.notFound().build();

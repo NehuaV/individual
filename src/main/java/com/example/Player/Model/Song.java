@@ -17,6 +17,18 @@ public class Song {
     @Column(name = "url")
     private String url;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "playlist_id", unique = true)
+    private Playlist playlist;
+
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+    }
+
     public Song(String title){
         this.title = title;
     }

@@ -1,15 +1,29 @@
 package com.example.Player.LogicLayer;
 
 import com.example.Player.FakeData.MockData;
+import com.example.Player.Interfaces.IPlaylist;
 import com.example.Player.Model.Playlist;
 import com.example.Player.Model.Song;
+import com.example.Player.repository.IPlaylistDAL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistManager {
+@Repository
+public class PlaylistManager implements IPlaylistDAL {
+
     private List<Playlist> playlistList = new ArrayList<>();
     private MockData mockData;
+
+    @Autowired
+    IPlaylist iPlaylist;
+
+    @Override
+    public List<Playlist> GetAllPlaylist() {
+        return iPlaylist.findAll();
+    }
 
     public PlaylistManager(){
 
@@ -25,10 +39,10 @@ public class PlaylistManager {
     }
 
     public Playlist CreatePlaylist(String name) {
-        Integer i = 0;
+        Long i = 0L;
         for (Playlist playlist : this.playlistList){
             if(!playlist.getId().equals(i.toString()) || playlist == null){
-                Playlist temp = new Playlist(i.toString(),name);
+                Playlist temp = new Playlist(i,name);
                 return temp;
             }
             i++;
