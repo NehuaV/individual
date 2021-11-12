@@ -2,6 +2,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import styles from "../css/PlayerReact.css";
 import axios from "axios";
+import { Button } from "reactstrap";
 
 export default class PlayerReact extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class PlayerReact extends React.Component {
       playing: false,
       controls: false,
       light: false,
-      volume: 1, // Volume
+      volume: 0.5, // Volume
       muted: false, // Mute
       played: 0, // Change FF on video/track
       loaded: 0, // Loaded Portion
@@ -30,34 +31,21 @@ export default class PlayerReact extends React.Component {
   }
 
   async componentDidMount() {
-    // Temporary hardcoded songs
-    //const songs = [
-    //  { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
-    //  { url: "https://www.youtube.com/watch?v=8B93tgRxMuE" },
-    //  { url: "https://www.youtube.com/watch?v=YE0WmmEn7Yk" },
-    //  { url: "https://www.youtube.com/watch?v=ETecZsoA0jo" },
-    //  { url: "https://youtu.be/8wRW57nBLMI?t=21" },
-    //  { url: "https://www.youtube.com/watch?v=EcCVX42H2fg" },
-    //  { url: "https://www.youtube.com/watch?v=bvC_0foemLY" },
-    //];
-
-    const songs = [
-      { url: "https://www.youtube.com/watch?v=O48hUxxJxS8" },
-    ];
-
+    var songs = [];
     await axios.get("http://localhost:8080/song").then((response) => {
-      this.setState({
-        songs: response.data,
-      });
+      // this.setState({
+      //   songs: response.data,
+      // });
       console.log(this.state.songs);
+      songs = response.data;
     });
-
+    this.setState({ songs: songs });
+    this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
-    this.setState({songs:songs});
-
-    // Load first song in list
-
-    this.setState({ url: songs[0].url });
+    /* 
+    Setting response data directly into songs state makes videos not load.
+    It is some sort of synchronization error or an error from the load order.
+     */
   }
 
   load = (url) => {
@@ -82,25 +70,29 @@ export default class PlayerReact extends React.Component {
   };
 
   handleNextSong = () => {
-    var lenght = 0;
-    var index = this.state.songs.findIndex(
-      (urlObj) => urlObj.url === this.state.url
-    );
-    index++;
-    this.state.songs.map((song) => lenght++);
-    if (!(index < lenght)) index = 0;
-    this.load(this.state.songs[index].url);
+    if (this.state.songs.length > 1) {
+      var lenght = 0;
+      var index = this.state.songs.findIndex(
+        (urlObj) => urlObj.url === this.state.url
+      );
+      index++;
+      this.state.songs.map((song) => lenght++);
+      if (!(index < lenght)) index = 0;
+      this.load(this.state.songs[index].url);
+    }
   };
 
   handlePreviousSong = () => {
-    var lenght = 0;
-    var index = this.state.songs.findIndex(
-      (urlObj) => urlObj.url === this.state.url
-    );
-    index--;
-    this.state.songs.map((song) => lenght++);
-    if (index < 0) index = lenght - 1;
-    this.load(this.state.songs[index].url);
+    if (this.state.songs.length > 1) {
+      var lenght = 0;
+      var index = this.state.songs.findIndex(
+        (urlObj) => urlObj.url === this.state.url
+      );
+      index--;
+      this.state.songs.map((song) => lenght++);
+      if (index < 0) index = lenght - 1;
+      this.load(this.state.songs[index].url);
+    }
   };
 
   // Volume
@@ -124,7 +116,7 @@ export default class PlayerReact extends React.Component {
 
   handleProgress = (state) => {
     // Update the duration slider
-    console.log("onProgress", state);
+    // console.log("onProgress", state);
     // Only update if we are not changing the position of the song
     if (!this.state.seeking) {
       this.setState(state);
@@ -169,12 +161,17 @@ export default class PlayerReact extends React.Component {
             </div>
           </div>
 
-          <button onClick={this.handlePreviousSong}> Previous song</button>
-          <button onClick={this.handlePlay}>
-            {this.state.playing ? "STOP" : "PLAY"}
-          </button>
-
-          <button onClick={this.handleNextSong}> Next song</button>
+          <div className="player-buttons">
+            <button className="player-button 1" onClick={this.handlePreviousSong}>
+              Previous song
+            </button>
+            <button className="player-button 2" onClick={this.handlePlay}>
+              {this.state.playing ? "STOP" : "PLAY"}
+            </button>
+            <button className="player-button 3" onClick={this.handleNextSong}>
+              Next song
+            </button>
+          </div>
 
           <div className="volume">
             <label for="customRange3" class="form-label">
@@ -183,6 +180,7 @@ export default class PlayerReact extends React.Component {
             <input
               type="range"
               class="form-range"
+              defaultValue="0.5"
               min="0"
               max="1"
               step="0.01"
@@ -198,7 +196,7 @@ export default class PlayerReact extends React.Component {
               type="range"
               class="form-range"
               min={0}
-              max={0.999999}
+              max={1}
               step="any"
               value={this.state.played}
               onMouseDown={this.handleSeekMouseDown}
