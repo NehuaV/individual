@@ -1,11 +1,16 @@
 package com.example.Player.dalinterfaces;
 
-import com.example.Player.Model.User;
+import com.example.Player.model.User;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 
 public interface IUserDAL {
-    List<User> GetUsers();
-    void addUser(User user);
-    User getUserByUsername(String username);
+    
+    User findUserByUsername(String username);
+    User findUserByEmail(String email);
+    User SaveAndFlush(User user);
+    Collection<User> findAll();
+    void deleteById(Long id);
+    Optional<User> findById(Long id);
 }

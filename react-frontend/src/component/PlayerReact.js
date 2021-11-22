@@ -1,8 +1,8 @@
 import React from "react";
 import ReactPlayer from "react-player";
-import styles from "../css/PlayerReact.css";
 import axios from "axios";
-import { Button } from "reactstrap";
+
+import '../css/PlayerReact.css'
 
 export default class PlayerReact extends React.Component {
   constructor(props) {
@@ -25,14 +25,13 @@ export default class PlayerReact extends React.Component {
       loop: false,
 
       // List of Songs
-      songs: [],
-      temp: [],
+      songs: []
     };
   }
 
   async componentDidMount() {
     var songs = [];
-    await axios.get("http://localhost:8080/song").then((response) => {
+    await axios.get("http://localhost:8080/user/songs").then((response) => {
       // this.setState({
       //   songs: response.data,
       // });
@@ -131,7 +130,6 @@ export default class PlayerReact extends React.Component {
             <div className="spinnerOverlay">
               <ReactPlayer
                 ref={this.ref}
-                className={styles.reactplayer}
                 className="video-pb"
                 width="500px"
                 height="500px"

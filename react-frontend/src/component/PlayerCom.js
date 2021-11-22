@@ -8,7 +8,7 @@ function PlayerCom() {
       <div className="player-wrapper">
         <div className="player-container">
           <div className="player-test">
-             <PlayerReact/>
+            <PlayerReact/>
           </div>
         </div>
       </div>

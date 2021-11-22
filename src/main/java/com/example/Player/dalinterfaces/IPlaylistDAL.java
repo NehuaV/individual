@@ -1,6 +1,6 @@
 package com.example.Player.dalinterfaces;
 
-import com.example.Player.Model.Playlist;
+import com.example.Player.model.Playlist;
 
 import java.util.List;
 

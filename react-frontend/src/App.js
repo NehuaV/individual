@@ -1,17 +1,25 @@
+import HeaderCom from "./component/HeaderCom";
+import LoginCom from "./component/LoginCom";
+import PlayerCom from "./component/PlayerCom";
+import Register from "./component/RegisterCom";
+import HomeCom from "./component/HomeCom";
 
-import UserCom from './component/UserCom';
-import CrudCom from './component/CrudCom';
-import HeaderCom from './component/HeaderCom';
-import PlayerCom from './component/PlayerCom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className="App">
-      <HeaderCom></HeaderCom>
-      <PlayerCom/>
-    </div>
+    <Router>
+      <HeaderCom />
+      <Switch>
+        <Route path="/" exact component={HomeCom} />
+        <Route path="/login" exact component={LoginCom} />
+        <Route path="/login" exact component={LoginCom} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/player" exact component={PlayerCom}/>
+      </Switch>
+    </Router>
   );
 }
 
