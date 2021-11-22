@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import '../css/HomeCom.css'
 
 const HomeCom = () => {
-    return (
-        <div>
-            <h1>Home</h1>
+  return (
+    <>
+      <section className="banner 1">
+        <div className="text">
+          <h1 className="title">Home Page!</h1>
         </div>
-    )
-}
+      </section>
+    </>
+  );
+};
 
-export default HomeCom
+export default HomeCom;

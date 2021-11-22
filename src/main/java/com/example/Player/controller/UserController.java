@@ -74,7 +74,7 @@ public class UserController {
                     .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             if (authentication.isAuthenticated()) {
                 String email = user.getEmail();
-                jsonObject.put("name", authentication.getName());
+                jsonObject.put("email", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
                 jsonObject.put("token", tokenProvider.createToken(email, userService.findUserByEmail(email).getRole()));
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);

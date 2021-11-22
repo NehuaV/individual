@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     private JwtProvider tokenProvider;
 
@@ -29,7 +28,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        log.info("JwtTokenFilter : doFilterInternal");
         String token = request.getHeader("Authorization");
         if (token != null) {
             try {
@@ -53,7 +51,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 return;
             }
         } else {
-            log.info("first time so creating token using UserResourceImpl - authenticate method");
         }
         filterChain.doFilter(request, response);
     }

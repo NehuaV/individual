@@ -1,3 +1,14 @@
+.background {
+    background: url("../resources/bgimage.jpg");
+    min-height: 94vh;
+    width: 100vw;
+    z-index: 0;
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 35%;
+}
+
 .overlay{
     height: 100%;
     display: grid;
@@ -7,8 +18,19 @@
 
 .wrapper-login {
     text-align: -webkit-center;
-    height: 90vh;
+    height: 80vh;
     display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.border {
+    width: 70vw;
+}
+
+.loginContainer {
+    display: grid;
+    height: 80vh;
     justify-content: center;
     align-items: center;
 }

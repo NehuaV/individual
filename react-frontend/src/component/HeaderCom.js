@@ -14,7 +14,7 @@ const HeaderCom = () => {
   };
 
   return (
-    <div>
+    <>
       <Navbar className="color-nav" expand="lg" sticky="top">
         <Link to={""} className="navbar-brand">
           MusicPlayer
@@ -46,7 +46,7 @@ const HeaderCom = () => {
           )}
         </Navbar.Collapse>
       </Navbar>
-    </div>
+    </>
   );
 };
 
