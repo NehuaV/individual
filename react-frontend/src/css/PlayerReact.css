@@ -2,7 +2,7 @@ button{
     user-select: none;
 }
 
-*[id^='widget']{
+div.video-pb iframe{
     border-radius: 50%;
 }
 
@@ -48,6 +48,10 @@ button.player-button.\31 {
 button.player-button.\33 {
     border-bottom-right-radius: 15px;
     border-top-right-radius: 15px;
+}
+
+.offcanvas{
+    margin-top: 55.99px;
 }
 
 

@@ -85,33 +85,6 @@ public class UserController {
         return null;
     }
 
-    @Autowired
-    ISongService service;
-
-    @GetMapping("/songs")
-    public ResponseEntity<Iterable<Song>> getAllSongs()  {
-        var songs = service.getAllSongs();
-        if(songs != null) {
-            return ResponseEntity.ok().body(songs);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PostMapping()
-    public ResponseEntity<Song> addSong(@RequestBody Song song) {
-        service.addSong(song);
-        //Create resource location
-        var result = service.getSongByTitle(song.getTitle()).getId().intValue();
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(result)
-                .toUri();
-
-        //Send location in response (in the header)
-        return ResponseEntity.created(location).build();
-    }
-
 
 //    @PostMapping()
 //    //POST at http://localhost:XXXX/country/

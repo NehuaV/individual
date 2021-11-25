@@ -1,8 +1,10 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import axios from "axios";
+import { Button, Offcanvas } from "react-bootstrap";
 
-import '../css/PlayerReact.css'
+import "../css/PlayerReact.css";
+import authToken from "../Redux/authToken";
 
 export default class PlayerReact extends React.Component {
   constructor(props) {
@@ -26,12 +28,23 @@ export default class PlayerReact extends React.Component {
 
       // List of Songs
       songs: []
+      songs: [],
+
+      // Offcanvas
+      show: false,
+      config: {
+        name: "Disable backdrop",
+        scroll: false,
+        backdrop: false,
+        placement:"end",
+      },
     };
   }
 
   async componentDidMount() {
     var songs = [];
-    await axios.get("http://localhost:8080/user/songs").then((response) => {
+    authToken(localStorage.jwtToken);
+    await axios.get("http://localhost:8080/song/songs").then((response) => {
       // this.setState({
       //   songs: response.data,
       // });
@@ -120,7 +133,17 @@ export default class PlayerReact extends React.Component {
     if (!this.state.seeking) {
       this.setState(state);
     }
+    this.handleAutoPlay(this.state);
   };
+
+  handleAutoPlay = (state) => {
+    if (this.state.played > 0.99) {
+      this.handleNextSong();
+    }
+  };
+
+  handleClose = () => this.setState({ show: false });
+  toggleShow = () => this.setState({ show: !this.state.show });
 
   render() {
     return (
@@ -160,7 +183,10 @@ export default class PlayerReact extends React.Component {
           </div>
 
           <div className="player-buttons">
-            <button className="player-button 1" onClick={this.handlePreviousSong}>
+            <button
+              className="player-button 1"
+              onClick={this.handlePreviousSong}
+            >
               Previous song
             </button>
             <button className="player-button 2" onClick={this.handlePlay}>
@@ -202,6 +228,22 @@ export default class PlayerReact extends React.Component {
               onMouseUp={this.handleSeekMouseUp}
             />
           </div>
+
+          <Button variant="primary" onClick={this.toggleShow} className="me-2">
+            Open Playlist
+          </Button>
+          <Offcanvas
+            show={this.state.show}
+            onHide={this.handleClose}
+            {...this.state.config}
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Title</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              Playlist Objects
+            </Offcanvas.Body>
+          </Offcanvas>
         </div>
       </>
     );

@@ -14,7 +14,7 @@ function App() {
       <HeaderCom />
       <Switch>
         <Route path="/" exact component={HomeCom} />
-        <Route path="/login" exact component={LoginCom} />
+        <Route path="/logout" exact component={HomeCom} />
         <Route path="/login" exact component={LoginCom} />
         <Route path="/register" exact component={Register} />
         <Route path="/player" exact component={PlayerCom}/>
