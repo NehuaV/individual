@@ -27,7 +27,6 @@ export default class PlayerReact extends React.Component {
       loop: false,
 
       // List of Songs
-      songs: []
       songs: [],
 
       // Offcanvas
