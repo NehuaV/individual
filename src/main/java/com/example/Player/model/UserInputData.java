@@ -1,7 +1,7 @@
 package com.example.Player.model;
 
 import java.util.Objects;
-
+// NOT IMPLEMENTED YET!
 public class UserInputData {
     private String displayName;
     private String description;

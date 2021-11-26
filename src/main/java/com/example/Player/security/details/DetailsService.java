@@ -1,5 +1,6 @@
 package com.example.Player.security.details;
 
+import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.model.User;
 import com.example.Player.service.Interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,11 @@ import java.util.Collection;
 public class DetailsService implements UserDetailsService {
 
     @Autowired
-    private IUserService userRepository;
+    private IUserDAL dal;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findUserByEmail(email);
+        User user = dal.findUserByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("Email " + email + " not found");
         }

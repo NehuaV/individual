@@ -1,25 +1,32 @@
 package com.example.Player.service;
 
+import com.example.Player.dto.SongDTO;
+import com.example.Player.dto.UserDTO;
+import com.example.Player.model.Song;
 import com.example.Player.model.User;
 import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.service.Interfaces.IUserService;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
-
 
     IUserDAL dal;
     @Autowired
     public UserService(IUserDAL dal){
         this.dal = dal;
     }
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public User findUserByUsername(String Username){ return dal.findUserByUsername(Username);}
@@ -30,8 +37,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Collection<User> findAll() {
-        return dal.findAll();
+    public Collection<UserDTO> findAll() {
+        return dal.findAll()
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -54,5 +64,10 @@ public class UserService implements IUserService {
             e.printStackTrace();
         }
         return jsonObject.toString();
+    }
+
+    private UserDTO EntityToDTO(User user){
+        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        return userDTO;
     }
 }

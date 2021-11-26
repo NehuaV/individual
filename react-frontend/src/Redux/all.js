@@ -1,2 +1,2 @@
 export * from "./User/auth/authActions";
-export * from "./User/userAction";
+export * from "./User/register/userAction";

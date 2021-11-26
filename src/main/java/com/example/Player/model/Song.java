@@ -1,7 +1,7 @@
 package com.example.Player.model;
 
-import lombok.Data;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -21,12 +21,9 @@ public class Song {
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")
+    @Getter
+    @Setter
     private Playlist playlist;
-
-    @Transient
-    public Long getId() {
-        return id;
-    }
 
     public Song(String title, String artist, String url) {
         this.title = title;
@@ -36,6 +33,10 @@ public class Song {
 
     public Song() {
 
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
@@ -64,14 +65,6 @@ public class Song {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Playlist getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
     }
 }
 

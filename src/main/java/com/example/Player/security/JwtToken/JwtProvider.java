@@ -22,16 +22,21 @@ public class JwtProvider implements Serializable {
 
     private static final long serialVersionUID = 2569800841756370596L;
 
+    // Token expire time
+    private long validityInMilliseconds = 1000 * 60 * 60 * 2; // 1sec * 1 minute * 1 hour * 2 hours
+
+    // Configurable secret key ( Can be changed easily from appilcation.properties)
     @Value("${jwt.secret-key}")
     private String secretKey;
 
+    // Encrypt the secret key
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    private long validityInMilliseconds = 1000 * 60 * 60 * 2; // 1sec * 1 minute * 1 hour * 2 hours
 
+    // Creates a token
     public String createToken(String username, Role role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", role);

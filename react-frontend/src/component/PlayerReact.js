@@ -28,6 +28,8 @@ export default class PlayerReact extends React.Component {
 
       // List of Songs
       songs: [],
+      // List of Playlist Info
+      playlists:[],
 
       // Offcanvas
       show: false,
@@ -144,6 +146,17 @@ export default class PlayerReact extends React.Component {
   handleClose = () => this.setState({ show: false });
   toggleShow = () => this.setState({ show: !this.state.show });
 
+  async loadPlaylists(){
+    var temp = []
+    await axios.get("http://localhost:8080/playlist/allPlaylists").then((response) => {
+      console.log(response.data);
+      temp = response.data;
+    });
+
+    // Does not work with offcanvas (Need to figure out)
+    console.log(temp);
+  }
+
   render() {
     return (
       <>
@@ -153,8 +166,8 @@ export default class PlayerReact extends React.Component {
               <ReactPlayer
                 ref={this.ref}
                 className="video-pb"
-                width="500px"
-                height="500px"
+                width="250px"
+                height="250px"
                 url={this.state.url}
                 pip={this.state.pip}
                 playing={this.state.playing}
@@ -165,18 +178,6 @@ export default class PlayerReact extends React.Component {
                 volume={this.state.volume}
                 muted={this.state.muted}
                 onProgress={this.handleProgress}
-                /*onReady={() => console.log("onReady")}
-            onStart={() => console.log("onStart")}
-            onPlay={this.handlePlay}
-            onEnablePIP={this.handleEnablePIP}
-            onDisablePIP={this.handleDisablePIP}
-            onPause={this.handlePause}
-            onBuffer={() => console.log("onBuffer")}
-            onSeek={(e) => console.log("onSeek", e)}
-            onEnded={this.handleEnded}
-            onError={(e) => console.log("onError", e)}
-            onProgress={this.handleProgress}
-            onDuration={this.handleDuration} */
               />
             </div>
           </div>
@@ -197,12 +198,12 @@ export default class PlayerReact extends React.Component {
           </div>
 
           <div className="volume">
-            <label for="customRange3" class="form-label">
+            <label className="form-label">
               Volume
             </label>
             <input
               type="range"
-              class="form-range"
+              className="form-range"
               defaultValue="0.5"
               min="0"
               max="1"
@@ -212,12 +213,12 @@ export default class PlayerReact extends React.Component {
             />
           </div>
           <div className="pBar">
-            <label for="customRange3" class="form-label">
+            <label  className="form-label">
               Pogress
             </label>
             <input
               type="range"
-              class="form-range"
+              className="form-range"
               min={0}
               max={1}
               step="any"
@@ -235,12 +236,13 @@ export default class PlayerReact extends React.Component {
             show={this.state.show}
             onHide={this.handleClose}
             {...this.state.config}
+            onEnter={this.loadPlaylists}
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>Title</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              Playlist Objects
+              
             </Offcanvas.Body>
           </Offcanvas>
         </div>

@@ -3,8 +3,11 @@ package com.example.Player.controller;
 
 import com.example.Player.dalinterfaces.IRoleDAL;
 import com.example.Player.dalinterfaces.IUserDAL;
+import com.example.Player.dto.UserDTO;
+import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
 import com.example.Player.model.User;
+import com.example.Player.repository.IPlaylistRepo;
 import com.example.Player.security.JwtToken.JwtProvider;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.IRoleService;
@@ -66,8 +69,10 @@ public class UserController {
         }
     }
 
+    // Login Method
     @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> authenticate(@RequestBody User user) {
+        // Creates a JSON object and puts user data
         JSONObject jsonObject = new JSONObject();
         try {
             Authentication authentication = authenticationManager
@@ -84,6 +89,18 @@ public class UserController {
         }
         return null;
     }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<Iterable<UserDTO>> getAllUsers()  {
+        var songs = userService.findAll();
+        if(songs != null) {
+            return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
 
 //    @PostMapping()
