@@ -33,9 +33,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
 
@@ -65,6 +65,8 @@ public class UserController {
             jsonObject.put("message", savedUser.getUsername() + " saved succesfully");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (JSONException e) {
+
+            // Implement returning Error
             return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -85,6 +87,8 @@ public class UserController {
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
+
+            // Implement returning Error
             return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.UNAUTHORIZED);
         }
         return null;

@@ -144,13 +144,19 @@ export default class PlayerReact extends React.Component {
   };
 
   handleClose = () => this.setState({ show: false });
-  toggleShow = () => this.setState({ show: !this.state.show });
+  toggleShow = () =>{
+  this.loadPlaylists();  
+  this.setState({ show: !this.state.show });
+}
 
   async loadPlaylists(){
     var temp = []
     await axios.get("http://localhost:8080/playlist/allPlaylists").then((response) => {
       console.log(response.data);
       temp = response.data;
+    
+    }).then(()=>{
+      // this.setState({playlists:temp});
     });
 
     // Does not work with offcanvas (Need to figure out)
@@ -236,7 +242,6 @@ export default class PlayerReact extends React.Component {
             show={this.state.show}
             onHide={this.handleClose}
             {...this.state.config}
-            onEnter={this.loadPlaylists}
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>Title</Offcanvas.Title>
