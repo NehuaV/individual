@@ -62,7 +62,7 @@ public class UserController {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setRole(roleService.findRoleByName(RoleEnum.USER.toString()));
             User savedUser = userService.saveOrUpdate(user);
-            jsonObject.put("message", savedUser.getUsername() + " saved succesfully");
+            jsonObject.put("message", savedUser.getUsername() + " saved successfully");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (JSONException e) {
 
