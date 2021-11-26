@@ -2,6 +2,15 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.3"
+
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "I456962_s3-individual-project_AXztFk-QriomE84HLFwp"
+		property "sonar.qualitygate.wait", true
+	}
 }
 
 group = 'com.example'
@@ -21,9 +30,28 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.6.0'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.hibernate:hibernate-core:5.6.1.Final'
+    implementation 'junit:junit:4.13.1'
+	implementation 'org.jetbrains:annotations:20.1.0'
+	implementation 'com.sun.jersey:jersey-json:1.17'
+	implementation 'org.modelmapper:modelmapper:2.4.4'
+
+	implementation 'com.sun.jersey:jersey-json:1.4'
+	implementation 'com.sun.jersey:jersey-server:1.4'
+
+	runtimeOnly 'mysql:mysql-connector-java:5.1.46'
+
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.4.3'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.3'
+
 	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {

@@ -1,0 +1,57 @@
+button{
+    user-select: none;
+}
+
+div.video-pb iframe{
+    border-radius: 50%;
+}
+
+.video-pb {
+    animation: rotation 120s infinite linear;
+    pointer-events: none;
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+
+.spinner {
+    margin-bottom: 30px;
+}
+
+.spinnerOverlay{
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    pointer-events: none;
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+
+.player-buttons{
+    display:flex;
+}
+.player-button{
+    width:100%;
+}
+
+button.player-button.\31 {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+
+}
+button.player-button.\33 {
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.offcanvas{
+    margin-top: 55.99px;
+}
+
+
