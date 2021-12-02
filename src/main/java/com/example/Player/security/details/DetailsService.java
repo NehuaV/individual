@@ -21,12 +21,12 @@ public class DetailsService implements UserDetailsService {
     private IUserDAL dal;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = dal.findUserByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = dal.findUserByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Email " + email + " not found");
+            throw new UsernameNotFoundException("Username " + username + " not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 getGrantedAuthority(user));
     }
 

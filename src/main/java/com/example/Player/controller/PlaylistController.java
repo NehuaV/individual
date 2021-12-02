@@ -29,14 +29,42 @@ public class PlaylistController {
     @Autowired
     ISongService songService;
 
-    @GetMapping("/allPlaylists")
-    public ResponseEntity<Iterable<PlaylistDTO>> getAllPlaylistsDTO() {
-        var playlists = service.getAllPlaylistsDTO();
-        if (playlists != null) {
-            return new ResponseEntity<>(service.getAllPlaylistsDTO(), HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
+//    @GetMapping("/allPlaylists")
+//    public ResponseEntity<Iterable<PlaylistDTO>> getAllPlaylistsDTO() {
+//        var playlists = service.getAllPlaylistsDTO();
+//        if (playlists != null) {
+//            return new ResponseEntity<>(service.getAllPlaylistsDTO(), HttpStatus.OK);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+    @GetMapping("/userPlaylist/aa")
+    public ResponseEntity<Iterable<PlaylistDTO>> getAllUserPlaylists() {
+        List<PlaylistDTO> playDTO = service.getAllPlaylistsDTO();
+        for (PlaylistDTO playlistDTO : playDTO) {
+            var songs = songService.getAllByPlaylistDTO(service.getById(playlistDTO.getId()));
+            playlistDTO.setSongs(songs);
         }
+        if (playDTO != null)
+            return new ResponseEntity<>(playDTO, HttpStatus.OK);
+        else
+            return ResponseEntity.notFound().build();
+
+    }
+
+    @GetMapping("/playlistAndSongs")
+    public ResponseEntity<Iterable<PlaylistDTO>> getAllPlaylists2() {
+        List<PlaylistDTO> playDTO = service.getAllPlaylistsDTO();
+        for (PlaylistDTO playlistDTO : playDTO) {
+            var songs = songService.getAllByPlaylistDTO(service.getById(playlistDTO.getId()));
+            playlistDTO.setSongs(songs);
+        }
+        if (playDTO != null)
+            return new ResponseEntity<>(playDTO, HttpStatus.OK);
+        else
+            return ResponseEntity.notFound().build();
+
     }
 
 //    @GetMapping("/allPlaylistsTest")
@@ -56,18 +84,4 @@ public class PlaylistController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
-
-    @GetMapping("/playlistAndSongs")
-    public ResponseEntity<Iterable<PlaylistDTO>> getAllPlaylists2() {
-        List<PlaylistDTO> playDTO = service.getAllPlaylistsDTO();
-        for (PlaylistDTO playlistDTO : playDTO) {
-            var songs = songService.getAllByPlaylistDTO(service.getById(playlistDTO.getId()));
-            playlistDTO.setSongs(songs);
-        }
-        if (playDTO != null)
-            return new ResponseEntity<>(playDTO, HttpStatus.OK);
-        else
-            return ResponseEntity.notFound().build();
-
-    }
 }

@@ -78,12 +78,12 @@ public class UserController {
         JSONObject jsonObject = new JSONObject();
         try {
             Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             if (authentication.isAuthenticated()) {
-                String email = user.getEmail();
-                jsonObject.put("email", authentication.getName());
+                String username = user.getUsername();
+                jsonObject.put("username", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
-                jsonObject.put("token", tokenProvider.createToken(email, userService.findUserByEmail(email).getRole()));
+                jsonObject.put("token", tokenProvider.createToken(username, userService.findUserByUsername(username).getRole()));
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
@@ -103,8 +103,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
 
 //    @PostMapping()

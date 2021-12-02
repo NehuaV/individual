@@ -7,7 +7,7 @@ import "../css/LoginCom.css";
 
 const LoginCom = (props) => {
   const initialState = {
-    email: "",
+    username: "",
     password: "",
   };
 
@@ -21,7 +21,7 @@ const LoginCom = (props) => {
   const dispatch = useDispatch();
 
   const validateUser = () => {
-    dispatch(authenticateUser(user.email, user.password))
+    dispatch(authenticateUser(user.username, user.password))
       .then((response) => {
         console.log(response.data);
         return props.history.push("/");
@@ -46,14 +46,14 @@ const LoginCom = (props) => {
           <Card.Body>
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  id="email"
-                  name="email"
+                  type="username"
+                  placeholder="Username"
+                  id="username"
+                  name="username"
                   required
-                  value={user.email}
+                  value={user.username}
                   onChange={credentialChange}
                 />
               </Form.Group>
@@ -75,7 +75,7 @@ const LoginCom = (props) => {
                 variant="primary"
                 type="button"
                 onClick={validateUser}
-                disabled={!user.email || !user.password}
+                disabled={!user.username || !user.password}
               >
                 Submit
               </Button>
