@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST,LOGOUT_REQUEST,SUCCESS,FAILURE } from "./authTypes";
+import { LOGIN_REQUEST, LOGOUT_REQUEST, SUCCESS, FAILURE } from "./authTypes";
 import axios from "axios";
 
 const AUTH_URL = "http://localhost:8080/user/authenticate";
@@ -10,7 +10,7 @@ export const authenticateUser = (email, password) => async (dispatch) => {
       email: email,
       password: password,
     });
-    console.log(response.data)
+    console.log(response.data);
     localStorage.setItem("jwtToken", response.data.token);
     dispatch(success({ email: response.data.email, isLoggedIn: true }));
     return Promise.resolve(response.data);

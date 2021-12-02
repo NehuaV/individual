@@ -1,11 +1,9 @@
 import {
   FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
-  USER_SAVED_SUCCESS
+  USER_SAVED_SUCCESS,
 } from "./userTypes";
 import axios from "axios";
-
-
 
 const REGISTER_URL = "http://localhost:8080/user/register";
 
@@ -33,7 +31,6 @@ const fetchUserRequest = () => {
     type: FETCH_USER_REQUEST,
   };
 };
-
 
 const fetchUserFailure = (error) => {
   return {

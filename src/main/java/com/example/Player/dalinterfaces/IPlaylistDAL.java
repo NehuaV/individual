@@ -8,4 +8,5 @@ public interface IPlaylistDAL {
     List<Playlist> GetAllPlaylist();
     Playlist getPlaylistByName(String name);
     void addPlaylist(Playlist playlist);
+    Playlist getById(Long id);
 }

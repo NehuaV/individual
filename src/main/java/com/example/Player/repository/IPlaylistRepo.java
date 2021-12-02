@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IPlaylistRepo extends JpaRepository<Playlist,Long> {
     Playlist findPlaylistByName(String name);
+    Playlist getById(Long id);
 }

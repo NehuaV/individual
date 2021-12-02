@@ -29,15 +29,16 @@ export default class PlayerReact extends React.Component {
       // List of Songs
       songs: [],
       // List of Playlist Info
-      playlists:[],
+      playlists: [],
 
       // Offcanvas
       show: false,
       config: {
         name: "Disable backdrop",
         scroll: false,
-        backdrop: false,
-        placement:"end",
+        backdrop: true,
+        placement: "end",
+        backdropClassName: "bckdrp",
       },
     };
   }
@@ -46,10 +47,6 @@ export default class PlayerReact extends React.Component {
     var songs = [];
     authToken(localStorage.jwtToken);
     await axios.get("http://localhost:8080/song/songs").then((response) => {
-      // this.setState({
-      //   songs: response.data,
-      // });
-      console.log(this.state.songs);
       songs = response.data;
     });
     this.setState({ songs: songs });
@@ -72,14 +69,15 @@ export default class PlayerReact extends React.Component {
     console.log({ url });
   };
 
+  ref = (player) => {
+    this.player = player;
+  };
+
+  // Player Controls (Next,Play/Pause,Previous)
   handlePlay = () => {
     // Play Stop Functionality
     this.setState({ playing: !this.state.playing });
     console.log(this.state.playing);
-  };
-
-  ref = (player) => {
-    this.player = player;
   };
 
   handleNextSong = () => {
@@ -143,25 +141,44 @@ export default class PlayerReact extends React.Component {
     }
   };
 
+  // OffCanvas (Playlists)
   handleClose = () => this.setState({ show: false });
-  toggleShow = () =>{
-  this.loadPlaylists();  
-  this.setState({ show: !this.state.show });
-}
+  toggleShow = () => {
+    this.loadPlaylists();
+    this.setState({ show: !this.state.show });
+  };
 
-  async loadPlaylists(){
-    var temp = []
-    await axios.get("http://localhost:8080/playlist/allPlaylists").then((response) => {
-      console.log(response.data);
-      temp = response.data;
-    
-    }).then(()=>{
-      // this.setState({playlists:temp});
-    });
-
-    // Does not work with offcanvas (Need to figure out)
-    console.log(temp);
+  async loadPlaylists() {
+    var temp = [];
+    await axios
+      .get("http://localhost:8080/playlist/playlistAndSongs")
+      .then((response) => {
+        console.log(response.data);
+        temp = response.data;
+      })
+      .then(() => {
+        this.setState({ playlists: temp });
+      });
+    console.log(this.state.playlists);
   }
+
+  selectPlaylist = (e) => {
+    var tempsongs = [];
+    console.log(e.target.getAttribute("data-index"));
+    this.state.playlists.forEach(function (item) {
+      if (item.id.toString() === e.target.getAttribute("data-index"))
+        tempsongs = item.songs;
+    });
+    console.log(tempsongs);
+    this.setState({ songs: tempsongs });
+    if(tempsongs[0] != null){
+      this.setState({ url: tempsongs[0].url });
+    } else {
+      // If the the playlist is empty provide an awsome video of cute weasels
+      this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
+    }
+    this.handleClose();
+  };
 
   render() {
     return (
@@ -204,9 +221,7 @@ export default class PlayerReact extends React.Component {
           </div>
 
           <div className="volume">
-            <label className="form-label">
-              Volume
-            </label>
+            <label className="form-label">Volume</label>
             <input
               type="range"
               className="form-range"
@@ -219,9 +234,7 @@ export default class PlayerReact extends React.Component {
             />
           </div>
           <div className="pBar">
-            <label  className="form-label">
-              Pogress
-            </label>
+            <label className="form-label">Pogress</label>
             <input
               type="range"
               className="form-range"
@@ -244,10 +257,19 @@ export default class PlayerReact extends React.Component {
             {...this.state.config}
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Title</Offcanvas.Title>
+              <Offcanvas.Title>Playlists</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              
+              {this.state.playlists.map((obj) => (
+                <Button
+                  key={obj.id}
+                  data-index={obj.id}
+                  onClick={this.selectPlaylist}
+                  className="playlistBtn"
+                >
+                  {obj.name}
+                </Button>
+              ))}
             </Offcanvas.Body>
           </Offcanvas>
         </div>

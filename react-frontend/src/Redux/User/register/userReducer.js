@@ -2,7 +2,7 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
-  USER_SAVED_SUCCESS
+  USER_SAVED_SUCCESS,
 } from "./userTypes";
 
 const initialState = {
@@ -27,11 +27,11 @@ const reducer = (state = initialState, action) => {
         users: [],
         error: action.payload,
       };
-      case USER_SAVED_SUCCESS:
-        return {
-          message: action.payload,
-          error: "",
-        };
+    case USER_SAVED_SUCCESS:
+      return {
+        message: action.payload,
+        error: "",
+      };
     default:
       return state;
   }

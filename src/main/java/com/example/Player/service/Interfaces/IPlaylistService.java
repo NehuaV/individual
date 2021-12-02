@@ -6,7 +6,9 @@ import com.example.Player.model.Playlist;
 import java.util.List;
 
 public interface IPlaylistService {
-    List<PlaylistDTO> getAllPlaylists();
+    List<PlaylistDTO> getAllPlaylistsDTO();
     Playlist getPlaylistByName(String name);
     void addPlaylist(Playlist playlist);
+    List<Playlist> getAllPlaylists();
+    Playlist getById(Long Id);
 }

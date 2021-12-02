@@ -1,5 +1,6 @@
 package com.example.Player.repository.JPA;
 
+import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
 import com.example.Player.dalinterfaces.ISongDAL;
 import com.example.Player.repository.ISongRepo;
@@ -24,4 +25,9 @@ public class SongJPA implements ISongDAL {
 
     @Override
     public void addSong(Song song) { repo.save(song); }
+
+    @Override
+    public List<Song> GetAllByPlaylist(Playlist playlist) {
+        return repo.findAllByPlaylist(playlist);
+    }
 }

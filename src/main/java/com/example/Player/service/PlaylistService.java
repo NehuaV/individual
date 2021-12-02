@@ -26,7 +26,7 @@ public class PlaylistService implements IPlaylistService {
     ModelMapper modelMapper;
 
     @Override
-    public List<PlaylistDTO> getAllPlaylists() {
+    public List<PlaylistDTO> getAllPlaylistsDTO() {
         return dal.GetAllPlaylist()
                 .stream()
                 .map(this::EntityToDTO)
@@ -41,6 +41,16 @@ public class PlaylistService implements IPlaylistService {
     @Override
     public void addPlaylist(Playlist playlist) {
         dal.addPlaylist(playlist);
+    }
+
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return dal.GetAllPlaylist();
+    }
+
+    @Override
+    public Playlist getById(Long Id) {
+        return dal.getById(Id);
     }
 
     private PlaylistDTO EntityToDTO(Playlist playlist){

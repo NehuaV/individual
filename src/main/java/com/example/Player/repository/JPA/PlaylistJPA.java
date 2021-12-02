@@ -29,4 +29,9 @@ public class PlaylistJPA implements IPlaylistDAL {
         repo.save(playlist);
     }
 
+    @Override
+    public Playlist getById(Long id) {
+        return repo.getById(id);
+    }
+
 }
