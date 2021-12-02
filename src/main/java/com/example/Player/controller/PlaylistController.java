@@ -9,6 +9,7 @@ import com.example.Player.model.User;
 import com.example.Player.repository.IPlaylistRepo;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.ISongService;
+import com.example.Player.service.Interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,10 @@ import java.util.List;
 public class PlaylistController {
 
     @Autowired
-    IPlaylistService service;
+    IUserService userService;
+
+    @Autowired
+    IPlaylistService playlistService;
 
     @Autowired
     ISongService songService;
@@ -39,11 +43,12 @@ public class PlaylistController {
 //        }
 //    }
 
-    @GetMapping("/userPlaylist/aa")
-    public ResponseEntity<Iterable<PlaylistDTO>> getAllUserPlaylists() {
-        List<PlaylistDTO> playDTO = service.getAllPlaylistsDTO();
+
+    @GetMapping()
+    public ResponseEntity<Iterable<PlaylistDTO>> getAllUserPlaylists(@RequestParam String userUsername) {
+        List<PlaylistDTO> playDTO = playlistService.getAllByUser(userService.findUserByUsername(userUsername));
         for (PlaylistDTO playlistDTO : playDTO) {
-            var songs = songService.getAllByPlaylistDTO(service.getById(playlistDTO.getId()));
+            var songs = songService.getAllByPlaylistDTO(playlistService.getById(playlistDTO.getId()));
             playlistDTO.setSongs(songs);
         }
         if (playDTO != null)
@@ -55,9 +60,9 @@ public class PlaylistController {
 
     @GetMapping("/playlistAndSongs")
     public ResponseEntity<Iterable<PlaylistDTO>> getAllPlaylists2() {
-        List<PlaylistDTO> playDTO = service.getAllPlaylistsDTO();
+        List<PlaylistDTO> playDTO = playlistService.getAllPlaylistsDTO();
         for (PlaylistDTO playlistDTO : playDTO) {
-            var songs = songService.getAllByPlaylistDTO(service.getById(playlistDTO.getId()));
+            var songs = songService.getAllByPlaylistDTO(playlistService.getById(playlistDTO.getId()));
             playlistDTO.setSongs(songs);
         }
         if (playDTO != null)

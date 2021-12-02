@@ -44,12 +44,13 @@ export default class PlayerReact extends React.Component {
   }
 
   async componentDidMount() {
-    var songs = [];
+    var playlists = [];
     authToken(localStorage.jwtToken);
-    await axios.get("http://localhost:8080/song/songs").then((response) => {
-      songs = response.data;
+    await axios.get("http://localhost:8080/playlist?userUsername="+this.props.username)
+    .then((response) => {
+      playlists = response.data;
     });
-    this.setState({ songs: songs });
+    this.setState({ songs: playlists[0].songs });
     this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
     /* 
@@ -151,7 +152,7 @@ export default class PlayerReact extends React.Component {
   async loadPlaylists() {
     var temp = [];
     await axios
-      .get("http://localhost:8080/playlist/playlistAndSongs")
+      .get("http://localhost:8080/playlist?userUsername="+this.props.username)
       .then((response) => {
         console.log(response.data);
         temp = response.data;
