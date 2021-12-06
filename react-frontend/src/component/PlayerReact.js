@@ -2,6 +2,16 @@ import React from "react";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import { Button, Offcanvas } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faPlayCircle,
+  faPauseCircle,
+  faForward,
+  faBackward,
+} from "@fortawesome/free-solid-svg-icons";
+
+import PlaylistModal from "./PlaylistModal.js";
 
 import "../css/PlayerReact.css";
 import authToken from "../Redux/authToken";
@@ -40,16 +50,19 @@ export default class PlayerReact extends React.Component {
         placement: "end",
         backdropClassName: "bckdrp",
       },
+      // Add Playlist Popup
+      modalShow: false,
     };
   }
 
   async componentDidMount() {
     var playlists = [];
     authToken(localStorage.jwtToken);
-    await axios.get("http://localhost:8080/playlist?userUsername="+this.props.username)
-    .then((response) => {
-      playlists = response.data;
-    });
+    await axios
+      .get("http://localhost:8080/playlist?userUsername=" + this.props.username)
+      .then((response) => {
+        playlists = response.data;
+      });
     this.setState({ songs: playlists[0].songs });
     this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
@@ -152,7 +165,7 @@ export default class PlayerReact extends React.Component {
   async loadPlaylists() {
     var temp = [];
     await axios
-      .get("http://localhost:8080/playlist?userUsername="+this.props.username)
+      .get("http://localhost:8080/playlist?userUsername=" + this.props.username)
       .then((response) => {
         console.log(response.data);
         temp = response.data;
@@ -172,7 +185,7 @@ export default class PlayerReact extends React.Component {
     });
     console.log(tempsongs);
     this.setState({ songs: tempsongs });
-    if(tempsongs[0] != null){
+    if (tempsongs[0] != null) {
       this.setState({ url: tempsongs[0].url });
     } else {
       // If the the playlist is empty provide an awsome video of cute weasels
@@ -211,13 +224,17 @@ export default class PlayerReact extends React.Component {
               className="player-button 1"
               onClick={this.handlePreviousSong}
             >
-              Previous song
+              <FontAwesomeIcon icon={faBackward} color="red" />
             </button>
             <button className="player-button 2" onClick={this.handlePlay}>
-              {this.state.playing ? "STOP" : "PLAY"}
+              {this.state.playing ? (
+                <FontAwesomeIcon icon={faPauseCircle} color="red" />
+              ) : (
+                <FontAwesomeIcon icon={faPlayCircle} color="green" />
+              )}
             </button>
             <button className="player-button 3" onClick={this.handleNextSong}>
-              Next song
+            <FontAwesomeIcon icon={faForward} color="red" />
             </button>
           </div>
 
@@ -258,6 +275,12 @@ export default class PlayerReact extends React.Component {
             {...this.state.config}
           >
             <Offcanvas.Header closeButton>
+              <FontAwesomeIcon
+                className="add-btn"
+                onClick={() => this.setState({ modalShow: true })}
+                icon={faPlus}
+                color="grey"
+              />
               <Offcanvas.Title>Playlists</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -273,6 +296,13 @@ export default class PlayerReact extends React.Component {
               ))}
             </Offcanvas.Body>
           </Offcanvas>
+          <PlaylistModal
+            show={this.state.modalShow}
+            onHide={() => {
+              this.setState({ modalShow: false });
+              this.loadPlaylists();
+            }}
+          />
         </div>
       </>
     );

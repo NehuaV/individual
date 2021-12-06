@@ -6,9 +6,12 @@ import com.example.Player.model.User;
 import java.util.List;
 
 public interface IPlaylistDAL {
-    List<Playlist> GetAllPlaylist();
-    Playlist getPlaylistByName(String name);
-    void addPlaylist(Playlist playlist);
     Playlist getById(Long id);
+    Playlist getPlaylistByName(String name);
+    Playlist saveAndFlush(Playlist playlist);
+
+    void addPlaylist(Playlist playlist);
+
+    List<Playlist> GetAllPlaylist();
     List<Playlist> getAllByUser(User user);
 }

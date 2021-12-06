@@ -26,6 +26,11 @@ public class PlaylistJPA implements IPlaylistDAL {
     }
 
     @Override
+    public Playlist saveAndFlush(Playlist playlist) {
+        return repo.saveAndFlush(playlist);
+    }
+
+    @Override
     public void addPlaylist(Playlist playlist) {
         repo.save(playlist);
     }

@@ -7,10 +7,13 @@ import com.example.Player.model.User;
 import java.util.List;
 
 public interface IPlaylistService {
-    List<PlaylistDTO> getAllPlaylistsDTO();
-    Playlist getPlaylistByName(String name);
-    void addPlaylist(Playlist playlist);
-    List<Playlist> getAllPlaylists();
     Playlist getById(Long Id);
+    Playlist getPlaylistByName(String name);
+    Playlist saveAndFlush(Playlist playlist);
+
+    void addPlaylist(Playlist playlist);
+
+    List<PlaylistDTO> getAllPlaylistsDTO();
+    List<Playlist> getAllPlaylists();
     List<PlaylistDTO> getAllByUser(User user);
 }

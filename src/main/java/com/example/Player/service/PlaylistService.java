@@ -40,6 +40,11 @@ public class PlaylistService implements IPlaylistService {
     }
 
     @Override
+    public Playlist saveAndFlush(Playlist playlist) {
+        return dal.saveAndFlush(playlist);
+    }
+
+    @Override
     public void addPlaylist(Playlist playlist) {
         dal.addPlaylist(playlist);
     }
