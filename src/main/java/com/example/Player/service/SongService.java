@@ -1,6 +1,7 @@
 package com.example.Player.service;
 
 import com.example.Player.dto.SongDTO;
+import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
 import com.example.Player.dalinterfaces.ISongDAL;
 import com.example.Player.repository.ISongRepo;
@@ -18,7 +19,9 @@ public class SongService implements ISongService {
     ISongDAL dal;
 
     @Autowired
-    public SongService(ISongDAL dal){this.dal = dal;}
+    public SongService(ISongDAL dal) {
+        this.dal = dal;
+    }
 
     @Autowired
     ModelMapper modelMapper;
@@ -38,12 +41,25 @@ public class SongService implements ISongService {
     }
 
     @Override
-    public void addSong(Song song) { dal.addSong(song); }
-
-    private SongDTO EntityToDTO(Song song){
-        SongDTO songDTO = modelMapper.map(song,SongDTO.class);
-        return songDTO;
+    public void addSong(Song song) {
+        dal.addSong(song);
     }
 
+    @Override
+    public List<Song> getAllByPlaylist(Playlist playlist) {
+        return dal.GetAllByPlaylist(playlist);
+    }
 
+    @Override
+    public List<SongDTO> getAllByPlaylistDTO(Playlist playlist) {
+        return dal.GetAllByPlaylist(playlist)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private SongDTO EntityToDTO(Song song) {
+        SongDTO songDTO = modelMapper.map(song, SongDTO.class);
+        return songDTO;
+    }
 }

@@ -8,8 +8,9 @@ plugins {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "I456962_s3-individual-project_AXztFk-QriomE84HLFwp"
-		property "sonar.qualitygate.wait", true
+		property "sonar.projectKey", "NehuaV_individual"
+		property "sonar.organization", "nehuav"
+		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
 

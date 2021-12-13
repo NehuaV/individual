@@ -1,4 +1,3 @@
-
 section.banner {
   min-height: 94vh;
   display: flex;
@@ -11,7 +10,7 @@ section.banner.\31 {
   background: url("../resources/bgimage.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 35%; 
+  background-position: 50% 35%;
 }
 
 h1.title {

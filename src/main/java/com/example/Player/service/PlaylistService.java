@@ -5,6 +5,7 @@ import com.example.Player.dto.SongDTO;
 import com.example.Player.model.Playlist;
 import com.example.Player.dalinterfaces.IPlaylistDAL;
 import com.example.Player.model.Song;
+import com.example.Player.model.User;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class PlaylistService implements IPlaylistService {
     ModelMapper modelMapper;
 
     @Override
-    public List<PlaylistDTO> getAllPlaylists() {
+    public List<PlaylistDTO> getAllPlaylistsDTO() {
         return dal.GetAllPlaylist()
                 .stream()
                 .map(this::EntityToDTO)
@@ -39,8 +40,31 @@ public class PlaylistService implements IPlaylistService {
     }
 
     @Override
+    public Playlist saveAndFlush(Playlist playlist) {
+        return dal.saveAndFlush(playlist);
+    }
+
+    @Override
     public void addPlaylist(Playlist playlist) {
         dal.addPlaylist(playlist);
+    }
+
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return dal.GetAllPlaylist();
+    }
+
+    @Override
+    public Playlist getById(Long Id) {
+        return dal.getById(Id);
+    }
+
+    @Override
+    public List<PlaylistDTO> getAllByUser(User user) {
+        return dal.getAllByUser(user)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
     }
 
     private PlaylistDTO EntityToDTO(Playlist playlist){

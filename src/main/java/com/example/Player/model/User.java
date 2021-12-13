@@ -65,5 +65,9 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public void addPlaylist(Playlist playlist){
+        this.playlist.add(playlist);
+    }
 }
 

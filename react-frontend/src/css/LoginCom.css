@@ -1,62 +1,62 @@
 .background {
-    background: url("../resources/bgimage.jpg");
-    min-height: 94vh;
-    width: 100vw;
-    z-index: 0;
-    position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 35%;
+  background: url("../resources/bgimage.jpg");
+  min-height: 94vh;
+  width: 100vw;
+  z-index: 0;
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 35%;
 }
 
-.overlay{
-    height: 100%;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+.overlay {
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrapper-login {
-    text-align: -webkit-center;
-    height: 80vh;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+  text-align: -webkit-center;
+  height: 80vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 
 .border {
-    width: 70vw;
+  width: 70vw;
 }
 
 .loginContainer {
-    display: grid;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
+  display: grid;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
 }
 
 form.login-form {
-    background-color: whitesmoke;
-    display: grid;
-    /* max-width: 500px; */
-    border-radius: 15px;
-    padding-inline: 15px;
-    padding-block: 10px;
+  background-color: whitesmoke;
+  display: grid;
+  /* max-width: 500px; */
+  border-radius: 15px;
+  padding-inline: 15px;
+  padding-block: 10px;
 }
 
 label.login-info {
-    float: left;
-    padding-top: 10px;
+  float: left;
+  padding-top: 10px;
 }
 
 button.close-btn.btn.btn-secondary {
-    margin: 0;
-    padding: 0;
-    justify-self: end;
-    width: 25px;
-    height: 25px;
+  margin: 0;
+  padding: 0;
+  justify-self: end;
+  width: 25px;
+  height: 25px;
 }
 
-.login-btn{
-    margin-top: 20px;
+.login-btn {
+  margin-top: 20px;
 }

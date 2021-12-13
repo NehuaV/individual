@@ -23,4 +23,6 @@ if (localStorage.jwtToken) {
 // "Reapplies" the state after the applcation refreshes
 export const persistor = persistStore(store);
 
-export default { store, persistor };
+const storePersist = { store, persistor };
+
+export default storePersist;
