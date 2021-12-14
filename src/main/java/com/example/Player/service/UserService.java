@@ -29,24 +29,16 @@ public class UserService implements IUserService {
     ModelMapper modelMapper;
 
     @Override
+    public Optional<User> findById(Long id) {
+        return dal.findById(id);
+    }
+
+    @Override
     public User findUserByUsername(String Username){ return dal.findUserByUsername(Username);}
 
     @Override
     public User findUserByEmail(String email) {
         return dal.findUserByEmail(email);
-    }
-
-    @Override
-    public Collection<UserDTO> findAll() {
-        return dal.findAll()
-                .stream()
-                .map(this::EntityToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Optional<User> findById(Long id) {
-        return dal.findById(id);
     }
 
     @Override
@@ -56,14 +48,22 @@ public class UserService implements IUserService {
 
     @Override
     public String deleteById(Long id) {
-        JSONObject jsonObject = new JSONObject();
+        JSONObject json = new JSONObject();
         try {
             dal.deleteById(id);
-            jsonObject.put("message", "User deleted successfully");
+            json.put("message", "User deleted successfully");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject.toString();
+        return json.toString();
+    }
+
+    @Override
+    public Collection<UserDTO> findAll() {
+        return dal.findAll()
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
     }
 
     private UserDTO EntityToDTO(User user){

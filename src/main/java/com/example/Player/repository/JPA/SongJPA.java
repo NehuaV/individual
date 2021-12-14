@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public class SongJPA implements ISongDAL {
+
     @Autowired
     ISongRepo repo;
 
@@ -24,7 +25,14 @@ public class SongJPA implements ISongDAL {
     }
 
     @Override
-    public void addSong(Song song) { repo.save(song); }
+    public Song saveAndFlush(Song song) {
+        return repo.saveAndFlush(song);
+    }
+
+    @Override
+    public void deleteSong(Song song) {
+        repo.delete(song);
+    }
 
     @Override
     public List<Song> GetAllByPlaylist(Playlist playlist) {

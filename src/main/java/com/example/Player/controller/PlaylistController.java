@@ -2,8 +2,11 @@ package com.example.Player.controller;
 
 
 import com.example.Player.dto.PlaylistDTO;
+import com.example.Player.dto.SongDTO;
 import com.example.Player.model.Playlist;
+import com.example.Player.model.Song;
 import com.example.Player.model.User;
+import com.example.Player.repository.IPlaylistRepo;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.ISongService;
 import com.example.Player.service.Interfaces.IUserService;
@@ -11,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,7 +57,6 @@ public class PlaylistController {
             return new ResponseEntity<>(playDTO, HttpStatus.OK);
         else
             return ResponseEntity.notFound().build();
-
     }
 
     @PostMapping()
@@ -61,6 +66,11 @@ public class PlaylistController {
         newPlaylist.setUser(user);
         playlistService.saveAndFlush(newPlaylist);
         return new ResponseEntity<>(playlistName+" has been added", HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> removePlaylist(@RequestParam Long playlistId){
+        return new ResponseEntity<>(playlistService.deleteById(playlistId),HttpStatus.OK);
     }
 
 

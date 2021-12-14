@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface IUserService {
 
-    Collection<UserDTO> findAll();
     Optional<User> findById(Long id);
     User findUserByUsername(String username);
     User findUserByEmail(String email);
-
     User saveOrUpdate(User user);
+
     String deleteById(Long id);
+    Collection<UserDTO> findAll();
 }
