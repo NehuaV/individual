@@ -20,6 +20,7 @@ import "../css/PlayerReact.css";
 import authToken from "../Redux/authToken";
 import AddSongModal from "./AddSongModal.js";
 import RemovePlaylistModal from "./RemovePlaylistModal.js";
+import RemoveSongModal from "./RemoveSongModal.js";
 
 export default class PlayerReact extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class PlayerReact extends React.Component {
       loop: false,
       // List of Songs
       songs: [],
-      song:{},
+      song: {},
       // List of Playlist Info
       playlists: [],
       // Offcanvas
@@ -58,6 +59,7 @@ export default class PlayerReact extends React.Component {
       modalPlaylistShow: false,
       modalSongShow: false,
       modalRemovePlaylist: false,
+      modalRemoveSong: false,
       playlistId: "",
     };
   }
@@ -81,9 +83,10 @@ export default class PlayerReact extends React.Component {
   }
 
   songReference = (song) => {
-    this.setState({song : song});
+    this.setState({ song: song });
+    console.log(song.data);
     console.log(this.state.song);
-  }
+  };
 
   load = (url) => {
     // Loads the video we wish to see
@@ -191,6 +194,11 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playlists);
   }
 
+  // Reload Current Playlist based on ID
+  async reloadPlaylist(){
+
+  }
+
   selectPlaylist = async (e) => {
     var tempsongs = [];
     console.log(e.target.getAttribute("data-index"));
@@ -227,6 +235,10 @@ export default class PlayerReact extends React.Component {
     console.log(e.target.getAttribute("playlistid"));
     this.setState({ playlistId: e.target.getAttribute("playlistid") });
   };
+
+  handleDeleteSong = () => {
+    this.setState({ modalRemoveSong: true });
+  }
 
   render() {
     return (
@@ -303,10 +315,19 @@ export default class PlayerReact extends React.Component {
           <Button variant="primary" onClick={this.toggleShow} className="me-2">
             Open Playlist
           </Button>
-          <Button variant="secondary" className="me-2" style={{display: this.state.url == "https://youtu.be/PBCpv-1qVD4?t=13" ? "none" : ""}}>
+          <Button
+            variant="secondary"
+            className="me-2"
+            onClick={this.handleDeleteSong}
+            style={{
+              display:
+                this.state.url === "https://youtu.be/PBCpv-1qVD4?t=13"
+                  ? "none"
+                  : "",
+            }}
+          >
             Delete Song
           </Button>
-
 
           <Offcanvas
             show={this.state.show}
@@ -377,6 +398,15 @@ export default class PlayerReact extends React.Component {
             onHide={() => {
               this.loadPlaylists();
               this.setState({ modalRemovePlaylist: false });
+            }}
+          />
+
+          <RemoveSongModal
+            songid={this.state.song.id}
+            show={this.state.modalRemoveSong}
+            onHide={() => {
+              this.loadPlaylists();
+              this.setState({ modalRemoveSong: false });
             }}
           />
         </div>

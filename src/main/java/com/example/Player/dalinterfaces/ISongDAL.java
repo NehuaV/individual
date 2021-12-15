@@ -12,6 +12,7 @@ public interface ISongDAL {
     Song saveAndFlush(Song song);
 
     void deleteSong(Song song);
+    void deleteById(Long id);
 
     List<Song> GetAllByPlaylist(Playlist playlist);
     List<Song> GetAllSongs();

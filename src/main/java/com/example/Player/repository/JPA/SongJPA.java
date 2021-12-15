@@ -35,6 +35,11 @@ public class SongJPA implements ISongDAL {
     }
 
     @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
+
+    @Override
     public List<Song> GetAllByPlaylist(Playlist playlist) {
         return repo.findAllByPlaylist(playlist);
     }
