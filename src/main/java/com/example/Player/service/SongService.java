@@ -47,11 +47,12 @@ public class SongService implements ISongService {
     public String deleteById(Long id) {
         JSONObject json = new JSONObject();
         try {
-            json.put("message", "User deleted successfully");
+            json.put("message", "Song was deleted successfully");
+            return json.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return json.toString();
+        return null;
     }
 
     private SongDTO EntityToDTO(Song song) {

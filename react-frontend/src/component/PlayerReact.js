@@ -42,6 +42,7 @@ export default class PlayerReact extends React.Component {
       loop: false,
       // List of Songs
       songs: [],
+      song:{},
       // List of Playlist Info
       playlists: [],
       // Offcanvas
@@ -70,12 +71,18 @@ export default class PlayerReact extends React.Component {
         playlists = response.data;
       });
     this.setState({ songs: playlists[0].songs });
+    this.songReference(playlists[0].songs[0]);
     this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
     /* 
     Setting response data directly into songs state makes videos not load.
     It is some sort of synchronization error or an error from the load order.
      */
+  }
+
+  songReference = (song) => {
+    this.setState({song : song});
+    console.log(this.state.song);
   }
 
   load = (url) => {
@@ -100,29 +107,31 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playing);
   };
 
-  handleNextSong = () => {
+  handleNextSong = async () => {
     if (this.state.songs.length > 1) {
       var lenght = 0;
       var index = this.state.songs.findIndex(
         (urlObj) => urlObj.url === this.state.url
       );
-      index++;
+      await index++;
       this.state.songs.map((song) => lenght++);
       if (!(index < lenght)) index = 0;
       this.load(this.state.songs[index].url);
+      this.songReference(this.state.songs[index]);
     }
   };
 
-  handlePreviousSong = () => {
+  handlePreviousSong = async () => {
     if (this.state.songs.length > 1) {
       var lenght = 0;
       var index = this.state.songs.findIndex(
         (urlObj) => urlObj.url === this.state.url
       );
-      index--;
+      await index--;
       this.state.songs.map((song) => lenght++);
       if (index < 0) index = lenght - 1;
       this.load(this.state.songs[index].url);
+      this.songReference(this.state.songs[index]);
     }
   };
 
@@ -182,7 +191,7 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playlists);
   }
 
-  selectPlaylist = (e) => {
+  selectPlaylist = async (e) => {
     var tempsongs = [];
     console.log(e.target.getAttribute("data-index"));
     this.state.playlists.forEach(function (item) {
@@ -190,9 +199,10 @@ export default class PlayerReact extends React.Component {
         tempsongs = item.songs;
     });
     console.log(tempsongs);
-    this.setState({ songs: tempsongs });
+    await this.setState({ songs: tempsongs });
     if (tempsongs[0] != null) {
-      this.setState({ url: tempsongs[0].url });
+      await this.setState({ url: tempsongs[0].url });
+      this.songReference(this.state.songs[0]);
     } else {
       // If the the playlist is empty provide an awsome video of cute weasels
       this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
@@ -293,6 +303,11 @@ export default class PlayerReact extends React.Component {
           <Button variant="primary" onClick={this.toggleShow} className="me-2">
             Open Playlist
           </Button>
+          <Button variant="secondary" className="me-2" style={{display: this.state.url == "https://youtu.be/PBCpv-1qVD4?t=13" ? "none" : ""}}>
+            Delete Song
+          </Button>
+
+
           <Offcanvas
             show={this.state.show}
             onHide={this.handleClose}

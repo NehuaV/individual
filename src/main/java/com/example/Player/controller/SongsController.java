@@ -50,6 +50,11 @@ public class SongsController {
         return new  ResponseEntity<>("song added",HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public ResponseEntity<String> removeSong(@RequestParam Long songId){
+        return new ResponseEntity<>(songService.deleteById(songId),HttpStatus.OK);
+    }
+
 
 
 
