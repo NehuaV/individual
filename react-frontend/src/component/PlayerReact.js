@@ -47,6 +47,7 @@ export default class PlayerReact extends React.Component {
       song: {},
       // List of Playlist Info
       playlists: [],
+      playlist:{},
       // Offcanvas
       show: false,
       config: {
@@ -74,6 +75,7 @@ export default class PlayerReact extends React.Component {
         playlists = response.data;
       });
     this.setState({ songs: playlists[0].songs });
+    this.playlistReference(playlists[0]);
     this.songReference(playlists[0].songs[0]);
     this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
@@ -85,9 +87,15 @@ export default class PlayerReact extends React.Component {
 
   songReference = (song) => {
     this.setState({ song: song });
-    console.log(song.data);
+    console.log("Song Reference");
     console.log(this.state.song);
   };
+
+  playlistReference = (playlist) => {
+    this.setState({playlist:playlist});
+    console.log("Playlist Reference")
+    console.log(this.state.playlist);
+  }
 
   load = (url) => {
     // Loads the video we wish to see
@@ -97,7 +105,7 @@ export default class PlayerReact extends React.Component {
       loaded: 0,
       pip: false,
     });
-    console.log({ url });
+    // console.log({ url });
   };
 
   ref = (player) => {
@@ -202,12 +210,14 @@ export default class PlayerReact extends React.Component {
 
   selectPlaylist = async (e) => {
     var tempsongs = [];
+    var tempplaylist = {};
     console.log(e.target.getAttribute("data-index"));
     this.state.playlists.forEach(function (item) {
       if (item.id.toString() === e.target.getAttribute("data-index"))
         tempsongs = item.songs;
+        tempplaylist = item;
     });
-    console.log(tempsongs);
+    await this.playlistReference(tempplaylist);
     await this.setState({ songs: tempsongs });
     if (tempsongs[0] != null) {
       await this.setState({ url: tempsongs[0].url });
