@@ -1,8 +1,9 @@
 package com.example.Player.model;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_user")

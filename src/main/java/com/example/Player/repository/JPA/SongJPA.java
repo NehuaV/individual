@@ -1,8 +1,8 @@
 package com.example.Player.repository.JPA;
 
+import com.example.Player.dalinterfaces.ISongDAL;
 import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
-import com.example.Player.dalinterfaces.ISongDAL;
 import com.example.Player.repository.ISongRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

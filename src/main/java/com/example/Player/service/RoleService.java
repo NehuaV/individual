@@ -1,8 +1,7 @@
 package com.example.Player.service;
 
-import com.example.Player.model.Role;
-
 import com.example.Player.dalinterfaces.IRoleDAL;
+import com.example.Player.model.Role;
 import com.example.Player.service.Interfaces.IRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

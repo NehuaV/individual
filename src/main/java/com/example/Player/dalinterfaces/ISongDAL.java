@@ -1,6 +1,5 @@
 package com.example.Player.dalinterfaces;
 
-import com.example.Player.dto.SongDTO;
 import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
 

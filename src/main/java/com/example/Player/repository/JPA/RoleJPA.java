@@ -1,7 +1,7 @@
 package com.example.Player.repository.JPA;
 
-import com.example.Player.model.Role;
 import com.example.Player.dalinterfaces.IRoleDAL;
+import com.example.Player.model.Role;
 import com.example.Player.repository.IRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

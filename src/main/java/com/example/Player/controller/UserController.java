@@ -1,24 +1,16 @@
 package com.example.Player.controller;
 
 
-import com.example.Player.dalinterfaces.IRoleDAL;
-import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.dto.UserDTO;
-import com.example.Player.model.Playlist;
-import com.example.Player.model.Song;
 import com.example.Player.model.User;
-import com.example.Player.repository.IPlaylistRepo;
 import com.example.Player.security.JwtToken.JwtProvider;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.IRoleService;
-import com.example.Player.service.Interfaces.ISongService;
 import com.example.Player.service.Interfaces.IUserService;
-
 import com.example.Player.utils.RoleEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/user")

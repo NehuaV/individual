@@ -8,14 +8,10 @@ import com.example.Player.model.User;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.ISongService;
 import com.example.Player.service.Interfaces.IUserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/song")

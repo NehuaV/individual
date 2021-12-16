@@ -2,7 +2,6 @@ package com.example.Player.security.details;
 
 import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.model.User;
-import com.example.Player.service.Interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

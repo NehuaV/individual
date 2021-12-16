@@ -1,10 +1,9 @@
 package com.example.Player.service;
 
+import com.example.Player.dalinterfaces.ISongDAL;
 import com.example.Player.dto.SongDTO;
 import com.example.Player.model.Playlist;
 import com.example.Player.model.Song;
-import com.example.Player.dalinterfaces.ISongDAL;
-import com.example.Player.repository.ISongRepo;
 import com.example.Player.service.Interfaces.ISongService;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;

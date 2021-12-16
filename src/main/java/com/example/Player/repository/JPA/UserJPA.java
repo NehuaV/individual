@@ -1,7 +1,7 @@
 package com.example.Player.repository.JPA;
 
-import com.example.Player.model.User;
 import com.example.Player.dalinterfaces.IUserDAL;
+import com.example.Player.model.User;
 import com.example.Player.repository.IUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
