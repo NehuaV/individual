@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface IUserDAL {
     
-    User findUserByUsername(String username);
+    User getUserByUsername(String username);
     User findUserByEmail(String email);
     User SaveAndFlush(User user);
 

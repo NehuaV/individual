@@ -21,7 +21,7 @@ public class DetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = dal.findUserByUsername(username);
+        User user = dal.getUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("Username " + username + " not found");
         }

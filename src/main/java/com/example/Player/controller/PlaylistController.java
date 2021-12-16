@@ -42,7 +42,7 @@ public class PlaylistController {
 
     @GetMapping()
     public ResponseEntity<Iterable<PlaylistDTO>> getAllUserPlaylists(@RequestParam String userUsername) {
-        List<PlaylistDTO> playDTO = playlistService.getAllByUser(userService.findUserByUsername(userUsername));
+        List<PlaylistDTO> playDTO = playlistService.getAllByUser(userService.getUserByUsername(userUsername));
         for (PlaylistDTO playlistDTO : playDTO) {
             var songs = songService.getAllByPlaylistDTO(playlistService.getById(playlistDTO.getId()));
             playlistDTO.setSongs(songs);
@@ -55,7 +55,7 @@ public class PlaylistController {
 
     @PostMapping()
     public ResponseEntity<String> addPlaylist(@RequestParam String playlistName,@RequestParam String userUsername) {
-        User user = userService.findUserByUsername(userUsername);
+        User user = userService.getUserByUsername(userUsername);
         Playlist newPlaylist = new Playlist(playlistName);
         newPlaylist.setUser(user);
         playlistService.saveAndFlush(newPlaylist);

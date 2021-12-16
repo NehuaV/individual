@@ -38,7 +38,7 @@ public class SongsController {
 
     @PostMapping()
     public ResponseEntity<String> addSong(@RequestParam String userUsername,@RequestParam String playlistId,@RequestBody Song song) {
-        User user = userService.findUserByUsername(userUsername);
+        User user = userService.getUserByUsername(userUsername);
         Playlist playlist = playlistService.getById(Long.parseLong(playlistId,10));
         playlist.setUser(user);
         song.setPlaylist(playlist);

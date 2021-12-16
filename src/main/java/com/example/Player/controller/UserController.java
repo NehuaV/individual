@@ -2,6 +2,7 @@ package com.example.Player.controller;
 
 
 import com.example.Player.dto.UserDTO;
+import com.example.Player.dto.UserProfileDTO;
 import com.example.Player.model.User;
 import com.example.Player.security.JwtToken.JwtProvider;
 import com.example.Player.service.Interfaces.IPlaylistService;
@@ -70,7 +71,7 @@ public class UserController {
                 String username = user.getUsername();
                 jsonObject.put("username", authentication.getName());
                 jsonObject.put("authorities", authentication.getAuthorities());
-                jsonObject.put("token", tokenProvider.createToken(username, userService.findUserByUsername(username).getRole()));
+                jsonObject.put("token", tokenProvider.createToken(username, userService.getUserByUsername(username).getRole()));
                 return new ResponseEntity<String>(jsonObject.toString(), HttpStatus.OK);
             }
         } catch (JSONException e) {
@@ -81,15 +82,21 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/allUsers")
-    public ResponseEntity<Iterable<UserDTO>> getAllUsers()  {
-        var songs = userService.findAll();
-        if(songs != null) {
-            return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping()
+    public ResponseEntity<UserProfileDTO> getUserInfo(@RequestParam String userUsername){
+        UserProfileDTO user = userService.getUserProfile(userUsername);
+        return new ResponseEntity<UserProfileDTO>(user,HttpStatus.OK);
     }
+
+//    @GetMapping("/allUsers")
+//    public ResponseEntity<Iterable<UserDTO>> getAllUsers()  {
+//        var songs = userService.findAll();
+//        if(songs != null) {
+//            return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 
 //    @PostMapping()

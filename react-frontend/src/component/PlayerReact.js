@@ -12,6 +12,7 @@ import {
   faTrashAlt,
   faMusic,
   faTimes,
+  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 import PlaylistModal from "./PlaylistModal.js";
@@ -270,22 +271,22 @@ export default class PlayerReact extends React.Component {
               className="player-button 1"
               onClick={this.handlePreviousSong}
             >
-              <FontAwesomeIcon icon={faBackward} color="red" />
+              <FontAwesomeIcon icon={faBackward} color="gray" />
             </button>
             <button className="player-button 2" onClick={this.handlePlay}>
               {this.state.playing ? (
-                <FontAwesomeIcon icon={faPauseCircle} color="red" />
+                <FontAwesomeIcon icon={faPauseCircle} color="gray" />
               ) : (
-                <FontAwesomeIcon icon={faPlayCircle} color="green" />
+                <FontAwesomeIcon icon={faPlayCircle} color="red" />
               )}
             </button>
             <button className="player-button 3" onClick={this.handleNextSong}>
-              <FontAwesomeIcon icon={faForward} color="red" />
+              <FontAwesomeIcon icon={faForward} color="gray" />
             </button>
           </div>
 
           <div className="volume">
-            <label className="form-label">Volume</label>
+          <FontAwesomeIcon className="volumebtn" icon={faVolumeUp} color="blue" />
             <input
               type="range"
               className="form-range"
@@ -298,7 +299,7 @@ export default class PlayerReact extends React.Component {
             />
           </div>
           <div className="pBar">
-            <label className="form-label">Pogress</label>
+            <label className="form-label">Time Elapsed: {this.state.playedseconds}</label>
             <input
               type="range"
               className="form-range"

@@ -27,6 +27,14 @@ public class User {
     @JsonIgnore
     private List<Playlist> playlist;
 
+    public List<Playlist> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(List<Playlist> playlist) {
+        this.playlist = playlist;
+    }
+
     public Long getId() {
         return id;
     }

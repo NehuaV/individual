@@ -39,6 +39,13 @@ div.video-pb iframe {
 }
 .player-button {
   width: 50%;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+  float:left;
+  z-index: 1000;
+  background-color: whitesmoke;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   float: right;
 }
 
@@ -66,6 +73,17 @@ button.player-button.\33 {
   user-select: none;
   cursor: pointer;
   width: -webkit-fill-available;
+}
+
+.volume{
+  display: block;
+}
+
+.volumebtn{
+  width: 40px!important;
+  height: 40px!important;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
 }
 
 

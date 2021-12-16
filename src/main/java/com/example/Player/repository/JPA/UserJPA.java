@@ -16,7 +16,7 @@ public class UserJPA implements IUserDAL {
     IUserRepo repo;
 
     @Override
-    public User findUserByUsername(String username){return repo.findUserByUsername(username);}
+    public User getUserByUsername(String username){return repo.getUserByUsername(username);}
 
     @Override
     public User findUserByEmail(String email) {
