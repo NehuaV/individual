@@ -1,8 +1,17 @@
 package com.example.Player;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import  static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UnitTest {
+
+//    @Test
+//    public void Test(){
+//        var hey = 1;
+//        Assertions.assertEquals(hey,1);
+//    }
 //     @Test
 //    public void GetAllUsers(){
 //

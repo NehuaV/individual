@@ -1,39 +1,80 @@
-version: '3.7'
+version: "3.8"
+
 services:
-#  docker-mysql:
-#    image: mysql:latest
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=Dobri2001
-#      - MYSQL_DATABASE=musicplayer
-#      - MYSQL_PASSWORD=Dobri2001
-
-  docker-mysql:
-    image: mysql:latest
-    user: root
-    volumes:
-      - type: bind
-        source: C:\ProgramData\MySQL\MySQL Server 8.0\Data\musicplayer
-        target: /var/lib/mysql/:rw
-    container_name: docker-mysql
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: .env
     environment:
-      - MYSQL_PASSWORD=Dobri2001
-      - MYSQL_ALLOW_EMPTY_PASSWORD
-
-  spring-boot-jpa-docker-webapp:
-    image: player
-    depends_on:
-      - docker-mysql
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
-      - "8081:8080"
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ../individual
+    restart: on-failure
+    env_file: .env
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
-      - DATABASE_HOST=docker-mysql
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=Dobri2001
-      - DATABASE_NAME=musicplayer
-      - DATABASE_PORT=3306
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?useSSL=false",
+        "spring.datasource.username" : "$MYSQLDB_USER",
+        "spring.datasource.password" : "$MYSQLDB_ROOT_PASSWORD",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
 
 volumes:
-  sqldata:
+  db:
+
+
+
+
+#version: '3.7'
+#services:
+##  docker-mysql:
+##    image: mysql:latest
+##    environment:
+##      - MYSQL_ROOT_PASSWORD=Dobri2001
+##      - MYSQL_DATABASE=musicplayer
+##      - MYSQL_PASSWORD=Dobri2001
+#
+#  docker-mysql:
+#    image: mysql:latest
+#    user: root
+#    volumes:
+#      - type: bind
+#        source: C:\ProgramData\MySQL\MySQL Server 8.0\Data\musicplayer
+#        target: /var/lib/mysql/:rw
+#    container_name: docker-mysql
+#    environment:
+#      - MYSQL_PASSWORD=Dobri2001
+#      - MYSQL_ALLOW_EMPTY_PASSWORD
+#
+#  spring-boot-jpa-docker-webapp:
+#    image: player
+#    depends_on:
+#      - docker-mysql
+#    ports:
+#      - "8081:8080"
+#    environment:
+#      - DATABASE_HOST=docker-mysql
+#      - DATABASE_USER=root
+#      - DATABASE_PASSWORD=Dobri2001
+#      - DATABASE_NAME=musicplayer
+#      - DATABASE_PORT=3306
+#
+#volumes:
+#  sqldata:
 
 
 
