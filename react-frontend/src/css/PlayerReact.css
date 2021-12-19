@@ -38,13 +38,22 @@ div.video-pb iframe {
   display: flex;
 }
 .player-button {
-  width: 100%;
+  width: 50%;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+  float:left;
+  z-index: 1000;
+  background-color: whitesmoke;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  float: right;
 }
 
 button.player-button.\31 {
   border-bottom-left-radius: 15px;
   border-top-left-radius: 15px;
 }
+
 button.player-button.\33 {
   border-bottom-right-radius: 15px;
   border-top-right-radius: 15px;
@@ -55,21 +64,57 @@ button.player-button.\33 {
 }
 
 .playlistBtn {
-  width: 100%;
-  height: 60px;
-  margin-top: 5px;
+  background-color:whitesmoke;
+  text-align: center;
+  padding:5px;
+  border-radius: 15px;
+  margin-inline: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  user-select: none;
+  cursor: pointer;
+  width: -webkit-fill-available;
 }
+
+.volume{
+  display: block;
+}
+
+.volumebtn{
+  width: 40px!important;
+  height: 40px!important;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+}
+
 
 .bckdrp {
   opacity: 0 !important;
 }
 
-.add-btn {
-  width: 40px!important;
+.playlist-menu{
+  display: grid;
+}
+
+.buttongroup {
+  display: inline-flex;
+  width: -webkit-fill-available;
+  margin-bottom: 10px;
+}
+
+.offbtn {
+  width: 45px!important;
   height: 40px!important;
   margin: 0;
   padding: 0.5rem 0.5rem;
-  margin-top: -0.5rem;
-  margin-right: -0.5rem;
-  margin-bottom: -0.5rem;
+  float:left;
+  z-index: 10000;
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+svg{
+  user-select: none;
+  pointer-events: none;
 }

@@ -1,7 +1,7 @@
 package com.example.Player.repository.JPA;
 
-import com.example.Player.model.User;
 import com.example.Player.dalinterfaces.IUserDAL;
+import com.example.Player.model.User;
 import com.example.Player.repository.IUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ public class UserJPA implements IUserDAL {
     IUserRepo repo;
 
     @Override
-    public User findUserByUsername(String username){return repo.findUserByUsername(username);}
+    public User getUserByUsername(String username){return repo.getUserByUsername(username);}
 
     @Override
     public User findUserByEmail(String email) {

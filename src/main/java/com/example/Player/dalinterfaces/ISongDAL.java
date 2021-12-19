@@ -6,8 +6,13 @@ import com.example.Player.model.Song;
 import java.util.List;
 
 public interface ISongDAL {
-    List<Song> GetAllSongs();
     Song getSongByTitle (String title);
-    void addSong(Song song);
+
+    Song saveAndFlush(Song song);
+
+    void deleteSong(Song song);
+    void deleteById(Long id);
+
     List<Song> GetAllByPlaylist(Playlist playlist);
+    List<Song> GetAllSongs();
 }

@@ -23,7 +23,7 @@ public class JwtProvider implements Serializable {
     private static final long serialVersionUID = 2569800841756370596L;
 
     // Token expire time
-    private long validityInMilliseconds = 1000 * 60 * 60 * 2; // 1sec * 1 minute * 1 hour * 2 hours
+    private long validityInMilliseconds = 7200000; // 2 hours
 
     // Configurable secret key ( Can be changed easily from appilcation.properties)
     @Value("${jwt.secret-key}")

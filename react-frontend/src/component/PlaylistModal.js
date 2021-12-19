@@ -8,7 +8,12 @@ function PlaylistModal(props) {
   const [name, setName] = useState();
   const addPlaylistURL = `http://localhost:8080/playlist?playlistName=${name}&userUsername=${username}`;
   async function addPlaylist() {
-    await axios.post(addPlaylistURL).then((response) => console.log(response)).then(props.onHide);
+    await axios.post(addPlaylistURL)
+    .then((response) => console.log(response))
+    .then(props.onHide)
+    .then(() => {
+      setName("");
+    });
   }
 
   return (

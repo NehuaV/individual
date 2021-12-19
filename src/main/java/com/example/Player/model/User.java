@@ -1,8 +1,9 @@
 package com.example.Player.model;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_user")
@@ -25,6 +26,14 @@ public class User {
     @OneToMany(targetEntity = Playlist.class, mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Playlist> playlist;
+
+    public List<Playlist> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(List<Playlist> playlist) {
+        this.playlist = playlist;
+    }
 
     public Long getId() {
         return id;

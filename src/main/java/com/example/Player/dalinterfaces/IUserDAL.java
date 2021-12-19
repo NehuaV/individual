@@ -7,10 +7,12 @@ import java.util.Optional;
 
 public interface IUserDAL {
     
-    User findUserByUsername(String username);
+    User getUserByUsername(String username);
     User findUserByEmail(String email);
     User SaveAndFlush(User user);
-    Collection<User> findAll();
+
     void deleteById(Long id);
+
+    Collection<User> findAll();
     Optional<User> findById(Long id);
 }

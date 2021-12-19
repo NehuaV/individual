@@ -7,9 +7,12 @@ import com.example.Player.model.Song;
 import java.util.List;
 
 public interface ISongService {
-    List<SongDTO> getAllSongs();
     Song getSongByTitle (String title);
-    void addSong(Song song);
+
+    Song saveAndFlush(Song song);
+    String deleteById(Long id);
+
+    List<SongDTO> getAllSongs();
     List<Song> getAllByPlaylist(Playlist playlist);
     List<SongDTO> getAllByPlaylistDTO(Playlist playlist);
 }

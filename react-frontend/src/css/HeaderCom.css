@@ -4,3 +4,12 @@ a.navbar-brand {
 a.nav-link {
   margin-inline: 20px;
 }
+
+.color-nav{
+  z-index: 10000;
+}
+
+.status{
+  margin-inline: 20px;
+  padding: 8px,0px;
+}

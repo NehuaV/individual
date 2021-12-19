@@ -9,12 +9,19 @@ import {
   faPauseCircle,
   faForward,
   faBackward,
+  faTrashAlt,
+  faMusic,
+  faTimes,
+  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 import PlaylistModal from "./PlaylistModal.js";
 
 import "../css/PlayerReact.css";
 import authToken from "../Redux/authToken";
+import AddSongModal from "./AddSongModal.js";
+import RemovePlaylistModal from "./RemovePlaylistModal.js";
+import RemoveSongModal from "./RemoveSongModal.js";
 
 export default class PlayerReact extends React.Component {
   constructor(props) {
@@ -35,12 +42,12 @@ export default class PlayerReact extends React.Component {
       duration: 0, // Display Duration
       playbackRate: 1.0, // Speed
       loop: false,
-
       // List of Songs
       songs: [],
+      song: {},
       // List of Playlist Info
       playlists: [],
-
+      playlist:{},
       // Offcanvas
       show: false,
       config: {
@@ -51,7 +58,11 @@ export default class PlayerReact extends React.Component {
         backdropClassName: "bckdrp",
       },
       // Add Playlist Popup
-      modalShow: false,
+      modalPlaylistShow: false,
+      modalSongShow: false,
+      modalRemovePlaylist: false,
+      modalRemoveSong: false,
+      playlistId: "",
     };
   }
 
@@ -64,12 +75,26 @@ export default class PlayerReact extends React.Component {
         playlists = response.data;
       });
     this.setState({ songs: playlists[0].songs });
+    this.playlistReference(playlists[0]);
+    this.songReference(playlists[0].songs[0]);
     this.setState({ url: this.state.songs[0].url });
     console.log(this.state.songs);
     /* 
     Setting response data directly into songs state makes videos not load.
     It is some sort of synchronization error or an error from the load order.
      */
+  }
+
+  songReference = (song) => {
+    this.setState({ song: song });
+    console.log("Song Reference");
+    console.log(this.state.song);
+  };
+
+  playlistReference = (playlist) => {
+    this.setState({playlist:playlist});
+    console.log("Playlist Reference")
+    console.log(this.state.playlist);
   }
 
   load = (url) => {
@@ -80,7 +105,7 @@ export default class PlayerReact extends React.Component {
       loaded: 0,
       pip: false,
     });
-    console.log({ url });
+    // console.log({ url });
   };
 
   ref = (player) => {
@@ -94,29 +119,31 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playing);
   };
 
-  handleNextSong = () => {
+  handleNextSong = async () => {
     if (this.state.songs.length > 1) {
       var lenght = 0;
       var index = this.state.songs.findIndex(
         (urlObj) => urlObj.url === this.state.url
       );
-      index++;
+      await index++;
       this.state.songs.map((song) => lenght++);
       if (!(index < lenght)) index = 0;
       this.load(this.state.songs[index].url);
+      this.songReference(this.state.songs[index]);
     }
   };
 
-  handlePreviousSong = () => {
+  handlePreviousSong = async () => {
     if (this.state.songs.length > 1) {
       var lenght = 0;
       var index = this.state.songs.findIndex(
         (urlObj) => urlObj.url === this.state.url
       );
-      index--;
+      await index--;
       this.state.songs.map((song) => lenght++);
       if (index < 0) index = lenght - 1;
       this.load(this.state.songs[index].url);
+      this.songReference(this.state.songs[index]);
     }
   };
 
@@ -167,7 +194,7 @@ export default class PlayerReact extends React.Component {
     await axios
       .get("http://localhost:8080/playlist?userUsername=" + this.props.username)
       .then((response) => {
-        console.log(response.data);
+        console.log("Data received");
         temp = response.data;
       })
       .then(() => {
@@ -176,23 +203,53 @@ export default class PlayerReact extends React.Component {
     console.log(this.state.playlists);
   }
 
-  selectPlaylist = (e) => {
+  // Reload Current Playlist based on ID
+  async reloadPlaylist(){
+
+  }
+
+  selectPlaylist = async (e) => {
     var tempsongs = [];
+    var tempplaylist = {};
     console.log(e.target.getAttribute("data-index"));
     this.state.playlists.forEach(function (item) {
       if (item.id.toString() === e.target.getAttribute("data-index"))
         tempsongs = item.songs;
+        tempplaylist = item;
     });
-    console.log(tempsongs);
-    this.setState({ songs: tempsongs });
+    await this.playlistReference(tempplaylist);
+    await this.setState({ songs: tempsongs });
     if (tempsongs[0] != null) {
-      this.setState({ url: tempsongs[0].url });
+      await this.setState({ url: tempsongs[0].url });
+      this.songReference(this.state.songs[0]);
     } else {
       // If the the playlist is empty provide an awsome video of cute weasels
       this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
     }
     this.handleClose();
   };
+
+  handlePlaylistId = (e) => {
+    this.setState({ modalSongShow: true });
+    console.log(e.target.getAttribute("playlistid"));
+    this.setState({ playlistId: e.target.getAttribute("playlistid") });
+  };
+
+  handleLatestSong() {
+    this.setState({ url: this.state.songs[this.state.songs.length - 1].url });
+    console.log(this.state.songs);
+    console.log(this.state.url);
+  }
+
+  handleDeletePlaylist = (e) => {
+    this.setState({ modalRemovePlaylist: true });
+    console.log(e.target.getAttribute("playlistid"));
+    this.setState({ playlistId: e.target.getAttribute("playlistid") });
+  };
+
+  handleDeleteSong = () => {
+    this.setState({ modalRemoveSong: true });
+  }
 
   render() {
     return (
@@ -224,22 +281,22 @@ export default class PlayerReact extends React.Component {
               className="player-button 1"
               onClick={this.handlePreviousSong}
             >
-              <FontAwesomeIcon icon={faBackward} color="red" />
+              <FontAwesomeIcon icon={faBackward} color="gray" />
             </button>
             <button className="player-button 2" onClick={this.handlePlay}>
               {this.state.playing ? (
-                <FontAwesomeIcon icon={faPauseCircle} color="red" />
+                <FontAwesomeIcon icon={faPauseCircle} color="gray" />
               ) : (
-                <FontAwesomeIcon icon={faPlayCircle} color="green" />
+                <FontAwesomeIcon icon={faPlayCircle} color="red" />
               )}
             </button>
             <button className="player-button 3" onClick={this.handleNextSong}>
-            <FontAwesomeIcon icon={faForward} color="red" />
+              <FontAwesomeIcon icon={faForward} color="gray" />
             </button>
           </div>
 
           <div className="volume">
-            <label className="form-label">Volume</label>
+          <FontAwesomeIcon className="volumebtn" icon={faVolumeUp} color="blue" />
             <input
               type="range"
               className="form-range"
@@ -252,7 +309,7 @@ export default class PlayerReact extends React.Component {
             />
           </div>
           <div className="pBar">
-            <label className="form-label">Pogress</label>
+            <label className="form-label">Time Elapsed: {this.state.playedseconds}</label>
             <input
               type="range"
               className="form-range"
@@ -269,38 +326,98 @@ export default class PlayerReact extends React.Component {
           <Button variant="primary" onClick={this.toggleShow} className="me-2">
             Open Playlist
           </Button>
+          <Button
+            variant="secondary"
+            className="me-2"
+            onClick={this.handleDeleteSong}
+            style={{
+              display:
+                this.state.url === "https://youtu.be/PBCpv-1qVD4?t=13"
+                  ? "none"
+                  : "",
+            }}
+          >
+            Delete Song
+          </Button>
+
           <Offcanvas
             show={this.state.show}
             onHide={this.handleClose}
             {...this.state.config}
           >
-            <Offcanvas.Header closeButton>
-              <FontAwesomeIcon
-                className="add-btn"
-                onClick={() => this.setState({ modalShow: true })}
-                icon={faPlus}
-                color="grey"
-              />
+            <Offcanvas.Header>
+              <button
+                className="offbtn"
+                onClick={() => this.setState({ modalPlaylistShow: true })}
+              >
+                <FontAwesomeIcon icon={faPlus} color="grey" />
+              </button>
               <Offcanvas.Title>Playlists</Offcanvas.Title>
+              <button className="offbtn" onClick={this.handleClose}>
+                <FontAwesomeIcon icon={faTimes} color="grey" />
+              </button>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              {this.state.playlists.map((obj) => (
-                <Button
-                  key={obj.id}
-                  data-index={obj.id}
-                  onClick={this.selectPlaylist}
-                  className="playlistBtn"
-                >
-                  {obj.name}
-                </Button>
-              ))}
+              <div className="playlist-menu">
+                {this.state.playlists.map((obj) => (
+                  <div className="buttongroup" key={obj.id}>
+                    <button
+                      className="offbtn"
+                      onClick={this.handlePlaylistId}
+                      playlistid={obj.id}
+                    >
+                      <FontAwesomeIcon color="grey" icon={faMusic} />
+                    </button>
+                    <div
+                      data-index={obj.id}
+                      onClick={this.selectPlaylist}
+                      className="playlistBtn"
+                    >
+                      {obj.name}
+                    </div>
+                    <button
+                      className="offbtn"
+                      onClick={this.handleDeletePlaylist}
+                      playlistid={obj.id}
+                    >
+                      <FontAwesomeIcon color="grey" icon={faTrashAlt} />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </Offcanvas.Body>
           </Offcanvas>
           <PlaylistModal
-            show={this.state.modalShow}
+            show={this.state.modalPlaylistShow}
             onHide={() => {
-              this.setState({ modalShow: false });
               this.loadPlaylists();
+              this.setState({ modalPlaylistShow: false });
+            }}
+          />
+          <AddSongModal
+            playlistid={this.state.playlistId}
+            show={this.state.modalSongShow}
+            onHide={() => {
+              this.loadPlaylists();
+              this.setState({ modalSongShow: false });
+            }}
+          />
+
+          <RemovePlaylistModal
+            playlistid={this.state.playlistId}
+            show={this.state.modalRemovePlaylist}
+            onHide={() => {
+              this.loadPlaylists();
+              this.setState({ modalRemovePlaylist: false });
+            }}
+          />
+
+          <RemoveSongModal
+            songid={this.state.song.id}
+            show={this.state.modalRemoveSong}
+            onHide={() => {
+              this.loadPlaylists();
+              this.setState({ modalRemoveSong: false });
             }}
           />
         </div>

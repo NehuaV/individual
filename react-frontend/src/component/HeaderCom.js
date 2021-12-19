@@ -20,10 +20,13 @@ const HeaderCom = () => {
           MusicPlayer
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           {auth.isLoggedIn ? (
             <>
-              <Nav className="mr-auto">
+              <Navbar.Text className="me-auto status">
+                Signed in as: <Link to={"userPage"} >{auth.username}</Link>
+              </Navbar.Text>
+              <Nav className="mr-right">
                 <Link to={"player"} className="nav-link">
                   MusicPlayer
                 </Link>
@@ -33,16 +36,14 @@ const HeaderCom = () => {
               </Nav>
             </>
           ) : (
-            <>
-              <Nav className="mr-auto">
-                <Link to={"login"} className="nav-link">
-                  Login
-                </Link>
-                <Link to={"register"} className="nav-link">
-                  Register
-                </Link>
-              </Nav>
-            </>
+            <Nav className="me-right">
+              <Link to={"login"} className="nav-link">
+                Login
+              </Link>
+              <Link to={"register"} className="nav-link">
+                Register
+              </Link>
+            </Nav>
           )}
         </Navbar.Collapse>
       </Navbar>

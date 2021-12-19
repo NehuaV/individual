@@ -2,11 +2,8 @@ package com.example.Player.controller;
 
 
 import com.example.Player.dto.PlaylistDTO;
-import com.example.Player.dto.SongDTO;
 import com.example.Player.model.Playlist;
-import com.example.Player.model.Song;
 import com.example.Player.model.User;
-import com.example.Player.repository.IPlaylistRepo;
 import com.example.Player.service.Interfaces.IPlaylistService;
 import com.example.Player.service.Interfaces.ISongService;
 import com.example.Player.service.Interfaces.IUserService;
@@ -14,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,7 +42,7 @@ public class PlaylistController {
 
     @GetMapping()
     public ResponseEntity<Iterable<PlaylistDTO>> getAllUserPlaylists(@RequestParam String userUsername) {
-        List<PlaylistDTO> playDTO = playlistService.getAllByUser(userService.findUserByUsername(userUsername));
+        List<PlaylistDTO> playDTO = playlistService.getAllByUser(userService.getUserByUsername(userUsername));
         for (PlaylistDTO playlistDTO : playDTO) {
             var songs = songService.getAllByPlaylistDTO(playlistService.getById(playlistDTO.getId()));
             playlistDTO.setSongs(songs);
@@ -57,16 +51,20 @@ public class PlaylistController {
             return new ResponseEntity<>(playDTO, HttpStatus.OK);
         else
             return ResponseEntity.notFound().build();
-
     }
 
     @PostMapping()
     public ResponseEntity<String> addPlaylist(@RequestParam String playlistName,@RequestParam String userUsername) {
-        User user = userService.findUserByUsername(userUsername);
+        User user = userService.getUserByUsername(userUsername);
         Playlist newPlaylist = new Playlist(playlistName);
         newPlaylist.setUser(user);
         playlistService.saveAndFlush(newPlaylist);
         return new ResponseEntity<>(playlistName+" has been added", HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> removePlaylist(@RequestParam Long playlistId){
+        return new ResponseEntity<>(playlistService.deleteById(playlistId),HttpStatus.OK);
     }
 
 

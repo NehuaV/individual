@@ -1,7 +1,7 @@
 package com.example.Player.repository.JPA;
 
-import com.example.Player.model.Playlist;
 import com.example.Player.dalinterfaces.IPlaylistDAL;
+import com.example.Player.model.Playlist;
 import com.example.Player.model.User;
 import com.example.Player.repository.IPlaylistRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ public class PlaylistJPA implements IPlaylistDAL {
     IPlaylistRepo repo;
 
     @Override
-    public List<Playlist> GetAllPlaylist() {
-        return repo.findAll();
+    public Playlist getById(Long id) {
+        return repo.getById(id);
     }
 
     @Override
@@ -26,23 +26,33 @@ public class PlaylistJPA implements IPlaylistDAL {
     }
 
     @Override
+    public Playlist getByUserAndId(User user, Long id) {
+        return repo.getByUserAndId(user,id);
+    }
+
+    @Override
     public Playlist saveAndFlush(Playlist playlist) {
         return repo.saveAndFlush(playlist);
     }
 
     @Override
-    public void addPlaylist(Playlist playlist) {
-        repo.save(playlist);
+    public void deletePlaylist(Playlist playlist) {
+        repo.delete(playlist);
     }
 
     @Override
-    public Playlist getById(Long id) {
-        return repo.getById(id);
+    public void deleteById(Long id) {
+        repo.deleteById(id);
     }
 
     @Override
     public List<Playlist> getAllByUser(User user) {
         return repo.getAllByUser(user);
+    }
+
+    @Override
+    public List<Playlist> GetAllPlaylist() {
+        return repo.findAll();
     }
 
 }
