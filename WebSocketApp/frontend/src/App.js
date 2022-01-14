@@ -5,12 +5,11 @@ import { Card, Form, Button } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const SOCKET_URL = "http://localhost:8080/notification";
+const SOCKET_URL = "http://localhost:8080/websocket";
 const GENERAL_TOPIC = "/topic/general";
 
 const App = () => {
   let generalClientRef;
-  // const [message, setMessage] = useState();
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -22,12 +21,6 @@ const App = () => {
   };
 
   const onMessageReceived = async (msg) => {
-    // await setMessage(msg);
-    // var temp = messages;
-    // temp.push(msg);
-    // console.log(temp);
-    // await setMessages(temp);
-    // await setText("");
     setMessages((prev) => [...prev, msg]);
   };
 

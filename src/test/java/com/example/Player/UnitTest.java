@@ -8,6 +8,7 @@ import com.example.Player.model.User;
 import com.example.Player.service.Interfaces.IUserService;
 import com.example.Player.service.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,51 +17,55 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 public class UnitTest {
 
-    @Autowired
-    ModelMapper modelMapper;
-
-
-    @Test
-    public void Test(){
-        var hey = 1;
-        Assertions.assertEquals(hey,1);
-    }
-
-    @Test
-    public void EntityPlaylistToDTO(){
-        Playlist given = new Playlist("name");
-        PlaylistDTO expected = new PlaylistDTO();
-        expected.setName("name");
-        PlaylistDTO actual = modelMapper.map(given, PlaylistDTO.class);
-        Assertions.assertEquals(expected,actual);
-
-    }
-    @Test
-    public void EntityProfileToDTO(){
-        User user = new User();
-        user.setEmail("test@test.com");
-        user.setUsername("test");
-        UserProfileDTO expected = new UserProfileDTO();
-        expected.setEmail("test@test.com");
-        expected.setUsername("test");
-        UserProfileDTO actual = modelMapper.map(user, UserProfileDTO.class);
-        Assertions.assertEquals(expected,actual);
-    }
-
-    @Test
-    public void EntityToDTO(){
-        User user = new User();
-        user.setEmail("test@test.com");
-        user.setUsername("test");
-        UserDTO expected = new UserDTO();
-        expected.setEmail("test@test.com");
-        expected.setUsername("test");
-        UserDTO actual = modelMapper.map(user, UserDTO.class);
-        Assertions.assertEquals(expected,actual);
-    }
+//    @Autowired
+//    ModelMapper modelMapper;
+//
+//
+//    @Test
+//    @Disabled
+//    public void Test(){
+//        var hey = 1;
+//        Assertions.assertEquals(hey,1);
+//    }
+//
+//    @Test
+//    @Disabled
+//    public void EntityPlaylistToDTO(){
+//        Playlist given = new Playlist("name");
+//        PlaylistDTO expected = new PlaylistDTO();
+//        expected.setName("name");
+//        PlaylistDTO actual = modelMapper.map(given, PlaylistDTO.class);
+//        Assertions.assertEquals(expected,actual);
+//
+//    }
+//    @Test
+//    @Disabled
+//    public void EntityProfileToDTO(){
+//        User user = new User();
+//        user.setEmail("test@test.com");
+//        user.setUsername("test");
+//        UserProfileDTO expected = new UserProfileDTO();
+//        expected.setEmail("test@test.com");
+//        expected.setUsername("test");
+//        UserProfileDTO actual = modelMapper.map(user, UserProfileDTO.class);
+//        Assertions.assertEquals(expected,actual);
+//    }
+//
+//    @Test
+//    @Disabled
+//    public void EntityToDTO(){
+//        User user = new User();
+//        user.setEmail("test@test.com");
+//        user.setUsername("test");
+//        UserDTO expected = new UserDTO();
+//        expected.setEmail("test@test.com");
+//        expected.setUsername("test");
+//        UserDTO actual = modelMapper.map(user, UserDTO.class);
+//        Assertions.assertEquals(expected,actual);
+//    }
 //
 //    @Test
 //    public void GetUsersUsername(){
