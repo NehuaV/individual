@@ -9,6 +9,5 @@ import java.util.List;
 public interface IPlaylistRepo extends JpaRepository<Playlist,Long> {
     Playlist findPlaylistByName(String name);
     Playlist getById(Long id);
-    Playlist getByUserAndId(User user, Long id);
     List<Playlist> getAllByUser(User user);
 }

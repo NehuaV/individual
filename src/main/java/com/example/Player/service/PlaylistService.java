@@ -37,11 +37,6 @@ public class PlaylistService implements IPlaylistService {
     }
 
     @Override
-    public PlaylistDTO getByUserAndPlaylistId(User user, Long id) {
-        return EntityToDTO(dal.getByUserAndId(user,id));
-    }
-
-    @Override
     public Playlist saveAndFlush(Playlist playlist) {
         return dal.saveAndFlush(playlist);
     }

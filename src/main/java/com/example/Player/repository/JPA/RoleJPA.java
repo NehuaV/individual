@@ -36,11 +36,11 @@ public class RoleJPA implements IRoleDAL {
 
     @Override
     public Optional<Role> findById(Long id) {
-        return Optional.empty();
+        return repo.findById(id);
     }
 
     @Override
     public Collection<Role> findAll() {
-        return null;
+        return repo.findAll();
     }
 }

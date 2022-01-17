@@ -29,11 +29,6 @@ public class PlaylistJPA implements IPlaylistDAL {
     }
 
     @Override
-    public Playlist getByUserAndId(User user, Long id) {
-        return repo.getByUserAndId(user,id);
-    }
-
-    @Override
     public Playlist saveAndFlush(Playlist playlist) {
         return repo.saveAndFlush(playlist);
     }
