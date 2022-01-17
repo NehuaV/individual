@@ -32,11 +32,6 @@ public class PlaylistService implements IPlaylistService {
     }
 
     @Override
-    public Playlist getPlaylistByName(String name) {
-        return dal.getPlaylistByName(name);
-    }
-
-    @Override
     public Playlist saveAndFlush(Playlist playlist) {
         return dal.saveAndFlush(playlist);
     }
@@ -44,14 +39,6 @@ public class PlaylistService implements IPlaylistService {
     @Override
     public List<PlaylistDTO> getAllByUser(User user) {
         return dal.getAllByUser(user)
-                .stream()
-                .map(this::EntityToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PlaylistDTO> getAllPlaylistsDTO() {
-        return dal.GetAllPlaylist()
                 .stream()
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());

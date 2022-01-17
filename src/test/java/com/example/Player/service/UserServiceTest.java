@@ -1,10 +1,12 @@
 package com.example.Player.service;
 
 import com.example.Player.dalinterfaces.IUserDAL;
+import com.example.Player.dto.UserDTO;
 import com.example.Player.model.User;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -47,9 +49,17 @@ class UserServiceTest {
 
     @Test
     void getUserByUsername() {
+        User user = new User("Dobri","dobri@gmail.com","123");
+        userService.saveOrUpdate(user);
+        dal.SaveAndFlush(user);
+
+        userService.getUserByUsername(user.getUsername());
+        verify(dal).getUserByUsername(user.getUsername());
+
     }
 
     @Test
+    @Disabled
     void getByUsernameDTO() {
     }
 
@@ -76,6 +86,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Disabled
     void getUserProfile() {
     }
 

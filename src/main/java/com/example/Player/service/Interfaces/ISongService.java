@@ -13,6 +13,5 @@ public interface ISongService {
     String deleteById(Long id);
 
     List<SongDTO> getAllSongs();
-    List<Song> getAllByPlaylist(Playlist playlist);
     List<SongDTO> getAllByPlaylistDTO(Playlist playlist);
 }
