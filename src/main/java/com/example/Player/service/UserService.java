@@ -85,7 +85,7 @@ public class UserService implements IUserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDTO EntityToDTO(User user){
+    private UserDTO EntityToDTO(User user){
         UserDTO userDTO = modelMapper.map(user,UserDTO.class);
         return userDTO;
     }

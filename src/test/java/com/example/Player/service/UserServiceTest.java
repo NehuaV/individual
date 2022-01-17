@@ -1,21 +1,35 @@
 package com.example.Player.service;
 
+import com.example.Player.dalinterfaces.IPlaylistDAL;
 import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.dto.UserDTO;
+import com.example.Player.model.Role;
 import com.example.Player.model.User;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class UserServiceTest {
 
@@ -39,7 +53,7 @@ class UserServiceTest {
 
     @Test
     void findById() {
-        User user = new User("Dobri","dobri@gmail.com","123");
+        User user = new User("Dobri", "dobri@gmail.com", "123");
         userService.saveOrUpdate(user);
         dal.SaveAndFlush(user);
 
@@ -49,7 +63,7 @@ class UserServiceTest {
 
     @Test
     void getUserByUsername() {
-        User user = new User("Dobri","dobri@gmail.com","123");
+        User user = new User("Dobri", "dobri@gmail.com", "123");
         userService.saveOrUpdate(user);
         dal.SaveAndFlush(user);
 
@@ -65,7 +79,7 @@ class UserServiceTest {
 
     @Test
     void findUserByEmail() {
-        User user = new User("Dobri","dobri@gmail.com","123");
+        User user = new User("Dobri", "dobri@gmail.com", "123");
         userService.saveOrUpdate(user);
         dal.SaveAndFlush(user);
 
@@ -75,7 +89,7 @@ class UserServiceTest {
 
     @Test
     void saveOrUpdate() {
-        User user = new User("Dobri","dobri@gmail.com","123");
+        User user = new User("Dobri", "dobri@gmail.com", "123");
         userService.saveOrUpdate(user);
 
         ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
@@ -92,7 +106,7 @@ class UserServiceTest {
 
     @Test
     void deleteById() {
-        User user = new User("Dobri","dobri@gmail.com","123");
+        User user = new User("Dobri", "dobri@gmail.com", "123");
         dal.SaveAndFlush(user);
 
         String message = userService.deleteById(1L);
