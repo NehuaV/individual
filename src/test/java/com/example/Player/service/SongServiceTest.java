@@ -1,12 +1,10 @@
-package com.example.Player.repository.JPA;
+package com.example.Player.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserJPATest {
+class SongServiceTest {
 
     @BeforeEach
     void setUp() {
@@ -17,11 +15,11 @@ class UserJPATest {
     }
 
     @Test
-    void getUserByUsername() {
+    void getSongByTitle() {
     }
 
     @Test
-    void findUserByEmail() {
+    void getAllByPlaylist() {
     }
 
     @Test
@@ -29,14 +27,14 @@ class UserJPATest {
     }
 
     @Test
-    void findAll() {
-    }
-
-    @Test
     void deleteById() {
     }
 
     @Test
-    void findById() {
+    void getAllByPlaylistDTO() {
+    }
+
+    @Test
+    void getAllSongs() {
     }
 }

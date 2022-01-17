@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserJPATest {
+class SongJPATest {
 
     @BeforeEach
     void setUp() {
@@ -17,11 +17,11 @@ class UserJPATest {
     }
 
     @Test
-    void getUserByUsername() {
+    void getSongByTitle() {
     }
 
     @Test
-    void findUserByEmail() {
+    void getAllSongs() {
     }
 
     @Test
@@ -29,7 +29,7 @@ class UserJPATest {
     }
 
     @Test
-    void findAll() {
+    void deleteSong() {
     }
 
     @Test
@@ -37,6 +37,6 @@ class UserJPATest {
     }
 
     @Test
-    void findById() {
+    void getAllByPlaylist() {
     }
 }

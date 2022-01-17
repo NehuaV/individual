@@ -1,12 +1,12 @@
-package com.example.Player.repository.JPA;
+package com.example.Player.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+class UserServiceTest {
 
-class UserJPATest {
+    UserService userService;
 
     @BeforeEach
     void setUp() {
@@ -17,7 +17,15 @@ class UserJPATest {
     }
 
     @Test
+    void findById() {
+    }
+
+    @Test
     void getUserByUsername() {
+    }
+
+    @Test
+    void getByUsernameDTO() {
     }
 
     @Test
@@ -25,11 +33,11 @@ class UserJPATest {
     }
 
     @Test
-    void saveAndFlush() {
+    void saveOrUpdate() {
     }
 
     @Test
-    void findAll() {
+    void getUserProfile() {
     }
 
     @Test
@@ -37,6 +45,6 @@ class UserJPATest {
     }
 
     @Test
-    void findById() {
+    void findAll() {
     }
 }

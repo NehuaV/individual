@@ -11,8 +11,14 @@ import java.util.Optional;
 
 @Repository
 public class RoleJPA implements IRoleDAL {
-    @Autowired
+
     IRoleRepo repo;
+
+    @Autowired
+    public RoleJPA(IRoleRepo repo) {
+        this.repo = repo;
+    }
+
     @Override
     public Role getRoleByName(String name) {
         return repo.findRoleByName(name);

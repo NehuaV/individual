@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class SongJPA implements ISongDAL {
 
-    @Autowired
     ISongRepo repo;
+
+    @Autowired
+    public SongJPA(ISongRepo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public Song getSongByTitle(String title) {

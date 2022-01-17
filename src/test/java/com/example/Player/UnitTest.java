@@ -1,22 +1,5 @@
 package com.example.Player;
 
-import com.example.Player.dto.PlaylistDTO;
-import com.example.Player.dto.UserDTO;
-import com.example.Player.dto.UserProfileDTO;
-import com.example.Player.model.Playlist;
-import com.example.Player.model.User;
-import com.example.Player.service.Interfaces.IUserService;
-import com.example.Player.service.UserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
-
-@SpringBootTest
 //@Transactional
 public class UnitTest {
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserJPATest {
+class RoleJPATest {
 
     @BeforeEach
     void setUp() {
@@ -17,11 +17,7 @@ class UserJPATest {
     }
 
     @Test
-    void getUserByUsername() {
-    }
-
-    @Test
-    void findUserByEmail() {
+    void getRoleByName() {
     }
 
     @Test
@@ -29,14 +25,14 @@ class UserJPATest {
     }
 
     @Test
-    void findAll() {
-    }
-
-    @Test
-    void deleteById() {
+    void findRoleByName() {
     }
 
     @Test
     void findById() {
+    }
+
+    @Test
+    void findAll() {
     }
 }

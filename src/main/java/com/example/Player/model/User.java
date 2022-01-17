@@ -1,11 +1,17 @@
 package com.example.Player.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tbl_user")
 public class User {
     @Id
@@ -27,56 +33,10 @@ public class User {
     @JsonIgnore
     private List<Playlist> playlist;
 
-    public List<Playlist> getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(List<Playlist> playlist) {
-        this.playlist = playlist;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public User(String username, String email, String password) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public void addPlaylist(Playlist playlist){
-        this.playlist.add(playlist);
     }
 }
 
