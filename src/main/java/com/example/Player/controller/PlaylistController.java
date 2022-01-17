@@ -35,7 +35,7 @@ public class PlaylistController {
 //        if (playlists != null) {
 //            return new ResponseEntity<>(service.getAllPlaylistsDTO(), HttpStatus.OK);
 //        } else {
-//            return ResponseEntity.notFound().build();
+//            return ResponseEntity.notFound().build(); 
 //        }
 //    }
 
