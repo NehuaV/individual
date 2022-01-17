@@ -12,8 +12,12 @@ import java.util.Optional;
 @Repository
 public class UserJPA implements IUserDAL {
 
-    @Autowired
     IUserRepo repo;
+
+    @Autowired
+    public UserJPA(IUserRepo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public User getUserByUsername(String username){return repo.getUserByUsername(username);}

@@ -12,8 +12,11 @@ import java.util.List;
 @Repository
 public class PlaylistJPA implements IPlaylistDAL {
 
-    @Autowired
     IPlaylistRepo repo;
+    @Autowired
+    public PlaylistJPA(IPlaylistRepo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public Playlist getById(Long id) {
@@ -23,11 +26,6 @@ public class PlaylistJPA implements IPlaylistDAL {
     @Override
     public Playlist getPlaylistByName(String name) {
         return repo.findPlaylistByName(name);
-    }
-
-    @Override
-    public Playlist getByUserAndId(User user, Long id) {
-        return repo.getByUserAndId(user,id);
     }
 
     @Override

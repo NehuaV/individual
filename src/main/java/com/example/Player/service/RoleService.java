@@ -35,8 +35,4 @@ public class RoleService implements IRoleService {
         return dal.findById(id);
     }
 
-    @Override
-    public Role saveOrUpdate(Role role) {
-        return dal.saveAndFlush(role);
-    }
 }

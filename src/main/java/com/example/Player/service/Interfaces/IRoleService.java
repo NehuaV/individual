@@ -9,5 +9,4 @@ public interface IRoleService {
     Role findRoleByName(String name);
     Collection<Role> findAll();
     Optional<Role> findById(Long id);
-    Role saveOrUpdate(Role role);
 }

@@ -33,11 +33,6 @@ public class SongService implements ISongService {
     }
 
     @Override
-    public List<Song> getAllByPlaylist(Playlist playlist) {
-        return dal.GetAllByPlaylist(playlist);
-    }
-
-    @Override
     public Song saveAndFlush(Song song) {
         return dal.saveAndFlush(song);
     }
