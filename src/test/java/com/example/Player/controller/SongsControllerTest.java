@@ -48,6 +48,19 @@ class SongsControllerTest {
     }
 
     @Test
+    void testGetAllSongs2() throws Exception {
+        when(this.iSongService.getAllSongs()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/song/songs");
+        getResult.characterEncoding("Encoding");
+        MockMvcBuilders.standaloneSetup(this.songsController)
+                .build()
+                .perform(getResult)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("[]"));
+    }
+
+    @Test
     void testRemoveSong() throws Exception {
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/song");
         MockHttpServletRequestBuilder requestBuilder = getResult.param("songId", String.valueOf(1L));

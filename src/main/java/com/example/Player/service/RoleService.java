@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
-@Service @Transactional @Slf4j
+@Service @Transactional
 public class RoleService implements IRoleService {
 
     IRoleDAL dal;

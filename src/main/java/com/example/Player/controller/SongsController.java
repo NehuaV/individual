@@ -43,12 +43,13 @@ public class SongsController {
         playlist.setUser(user);
         song.setPlaylist(playlist);
         songService.saveAndFlush(song);
-        return new  ResponseEntity<>("song added",HttpStatus.OK);
+        return new  ResponseEntity<>("Song Added Successfully",HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<String> removeSong(@RequestParam Long songId){
-        return new ResponseEntity<>(songService.deleteById(songId),HttpStatus.OK);
+        songService.deleteById(songId);
+        return new ResponseEntity<>("Song Deleted Successfully",HttpStatus.OK);
     }
 
 

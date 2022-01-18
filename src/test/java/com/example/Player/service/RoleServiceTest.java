@@ -1,32 +1,51 @@
 package com.example.Player.service;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.Player.dalinterfaces.IRoleDAL;
+import com.example.Player.model.Role;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.HashSet;
+
+import static org.mockito.Mockito.verify;
+
+@ContextConfiguration(classes = {RoleService.class})
+@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 class RoleServiceTest {
+    @MockBean
+    private IRoleDAL dal;
 
-    @BeforeEach
-    void setUp() {
-    }
+    @Autowired
+    private RoleService roleService;
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void testFindRoleByName() {
+        Role role = new Role(1L, "USER", (new HashSet<>()));
+        dal.saveAndFlush(role);
+
+        roleService.findRoleByName(role.getName());
+        verify(dal).findRoleByName(role.getName());
     }
 
     @Test
-    void findRoleByName() {
+    void testFindAll() {
+        roleService.findAll();
+        verify(dal).findAll();
     }
 
     @Test
-    void findAll() {
-    }
+    void testFindById() {
+        Role role = new Role(1L, "USER", (new HashSet<>()));
+        dal.saveAndFlush(role);
 
-    @Test
-    void findById() {
-    }
-
-    @Test
-    void saveOrUpdate() {
+        roleService.findById(role.getId());
+        verify(dal).findById(role.getId());
     }
 }
+

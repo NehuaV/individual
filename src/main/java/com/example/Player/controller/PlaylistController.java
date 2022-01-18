@@ -64,7 +64,7 @@ public class PlaylistController {
 
     @DeleteMapping
     public ResponseEntity<String> removePlaylist(@RequestParam Long playlistId){
-        return new ResponseEntity<>(playlistService.deleteById(playlistId),HttpStatus.OK);
+        return new ResponseEntity<>("Playlist Deleted Successfully",HttpStatus.OK);
     }
 
 

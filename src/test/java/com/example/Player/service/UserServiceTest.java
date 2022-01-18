@@ -5,51 +5,46 @@ import com.example.Player.dalinterfaces.IUserDAL;
 import com.example.Player.dto.UserDTO;
 import com.example.Player.model.Role;
 import com.example.Player.model.User;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.assertj.core.api.AssertionsForClassTypes;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
+@ContextConfiguration(classes = {UserService.class})
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
+
+    @MockBean
+    private IPlaylistDAL iPlaylistDAL;
+
+    @MockBean
+    private IUserDAL iUserDAL;
+
+    @MockBean
+    private ModelMapper modelMapper;
 
     @Mock
     IUserDAL dal;
     UserService userService;
-    AutoCloseable autoCloseable;
-    ModelMapper modelMapper;
 
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
         userService = new UserService(dal);
-        modelMapper = new ModelMapper();
     }
 
-    @AfterEach
-    void tearDown() throws Exception {
-        autoCloseable.close();
-    }
 
     @Test
     void findById() {
@@ -69,13 +64,20 @@ class UserServiceTest {
 
         userService.getUserByUsername(user.getUsername());
         verify(dal).getUserByUsername(user.getUsername());
-
     }
 
     @Test
     @Disabled
-    void getByUsernameDTO() {
+    void testGetByUsernameDTO() {
+        Role role = new Role(1L, "USER", (new HashSet<>()));
+        User user = new User(1L,"Dobri", "dobri@gmail.com", "123",role,(new ArrayList<>()));
+        dal.SaveAndFlush(user);
+
+        UserDTO userDTO = new UserDTO(1L,"Dobri","dobri@gmail.com");
+        UserDTO coverted = userService.getByUsernameDTO(user.getUsername());
+        AssertionsForClassTypes.assertThat(coverted).isEqualTo(userDTO);
     }
+
 
     @Test
     void findUserByEmail() {
