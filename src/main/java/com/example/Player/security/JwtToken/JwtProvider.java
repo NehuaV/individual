@@ -20,8 +20,6 @@ import java.util.Date;
 @Component
 public class JwtProvider implements Serializable {
 
-    private static final long serialVersionUID = 2569800841756370596L;
-
     // Token expire time
     private long validityInMilliseconds = 7200000; // 2 hours
 

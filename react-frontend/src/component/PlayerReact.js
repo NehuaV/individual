@@ -67,21 +67,23 @@ export default class PlayerReact extends React.Component {
   }
 
   async componentDidMount() {
-
     authToken(localStorage.jwtToken);
     var testing = await axios.get(
       "http://localhost:8080/playlist?userUsername=" + this.props.username
     );
     var playlists = testing.data;
 
-    if (playlists.hasOwnProperty("songs")) {
+    console.log(playlists);
+    if (playlists[0].hasOwnProperty("id")) {
       this.setState({ songs: playlists[0].songs });
       this.songReference(playlists[0].songs[0]);
     }
     this.playlistReference(playlists[0]);
-    if (playlists.hasOwnProperty("songs"))
-      this.setState({ url: this.state.songs[0].url });
-    else this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
+    if (playlists[0].hasOwnProperty("id")) {
+      this.setState({ url: playlists[0].songs[0].url });
+    } else {
+      this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
+    }
     console.log(this.state.songs);
   }
 
