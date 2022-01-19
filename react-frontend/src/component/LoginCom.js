@@ -74,6 +74,7 @@ const LoginCom = (props) => {
               <Button
                 variant="primary"
                 type="button"
+                name="btn"
                 onClick={validateUser}
                 disabled={!user.username || !user.password}
               >

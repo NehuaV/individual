@@ -27,8 +27,7 @@ function App() {
             <Route path="/userPage" exact component={UserPage} />
           </>
         ) : (
-          <>
-          </>
+          <></>
         )}
       </Switch>
     </Router>
