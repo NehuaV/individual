@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tbl_role")
 public class Role {
@@ -24,7 +22,26 @@ public class Role {
     @JsonIgnore
     private Set<User> users;
 
+    public Role() {
+    }
+
     public Role(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

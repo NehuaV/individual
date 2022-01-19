@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "tbl_user")
 public class User {
     @Id

@@ -47,7 +47,7 @@ export default class PlayerReact extends React.Component {
       song: {},
       // List of Playlist Info
       playlists: [],
-      playlist:{},
+      playlist: {},
       // Offcanvas
       show: false,
       config: {
@@ -67,22 +67,22 @@ export default class PlayerReact extends React.Component {
   }
 
   async componentDidMount() {
-    var playlists = [];
+
     authToken(localStorage.jwtToken);
-    await axios
-      .get("http://localhost:8080/playlist?userUsername=" + this.props.username)
-      .then((response) => {
-        playlists = response.data;
-      });
-    this.setState({ songs: playlists[0].songs });
+    var testing = await axios.get(
+      "http://localhost:8080/playlist?userUsername=" + this.props.username
+    );
+    var playlists = testing.data;
+
+    if (playlists.hasOwnProperty("songs")) {
+      this.setState({ songs: playlists[0].songs });
+      this.songReference(playlists[0].songs[0]);
+    }
     this.playlistReference(playlists[0]);
-    this.songReference(playlists[0].songs[0]);
-    this.setState({ url: this.state.songs[0].url });
+    if (playlists.hasOwnProperty("songs"))
+      this.setState({ url: this.state.songs[0].url });
+    else this.setState({ url: "https://youtu.be/PBCpv-1qVD4?t=13" });
     console.log(this.state.songs);
-    /* 
-    Setting response data directly into songs state makes videos not load.
-    It is some sort of synchronization error or an error from the load order.
-     */
   }
 
   songReference = (song) => {
@@ -92,10 +92,10 @@ export default class PlayerReact extends React.Component {
   };
 
   playlistReference = (playlist) => {
-    this.setState({playlist:playlist});
-    console.log("Playlist Reference")
+    this.setState({ playlist: playlist });
+    console.log("Playlist Reference");
     console.log(this.state.playlist);
-  }
+  };
 
   load = (url) => {
     // Loads the video we wish to see
@@ -204,9 +204,7 @@ export default class PlayerReact extends React.Component {
   }
 
   // Reload Current Playlist based on ID
-  async reloadPlaylist(){
-
-  }
+  async reloadPlaylist() {}
 
   selectPlaylist = async (e) => {
     var tempsongs = [];
@@ -215,7 +213,7 @@ export default class PlayerReact extends React.Component {
     this.state.playlists.forEach(function (item) {
       if (item.id.toString() === e.target.getAttribute("data-index"))
         tempsongs = item.songs;
-        tempplaylist = item;
+      tempplaylist = item;
     });
     await this.playlistReference(tempplaylist);
     await this.setState({ songs: tempsongs });
@@ -249,7 +247,7 @@ export default class PlayerReact extends React.Component {
 
   handleDeleteSong = () => {
     this.setState({ modalRemoveSong: true });
-  }
+  };
 
   render() {
     return (
@@ -296,7 +294,11 @@ export default class PlayerReact extends React.Component {
           </div>
 
           <div className="volume">
-          <FontAwesomeIcon className="volumebtn" icon={faVolumeUp} color="blue" />
+            <FontAwesomeIcon
+              className="volumebtn"
+              icon={faVolumeUp}
+              color="blue"
+            />
             <input
               type="range"
               className="form-range"
@@ -309,7 +311,9 @@ export default class PlayerReact extends React.Component {
             />
           </div>
           <div className="pBar">
-            <label className="form-label">Time Elapsed: {this.state.playedseconds}</label>
+            <label className="form-label">
+              Time Elapsed: {this.state.playedseconds}
+            </label>
             <input
               type="range"
               className="form-range"

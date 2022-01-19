@@ -78,6 +78,7 @@ class RoleJPATest {
         roleJPA.saveAndFlush(role);
         repo.save(role);
 
+
         roleJPA.findById(1L);
         verify(repo).findById(1L);
     }
